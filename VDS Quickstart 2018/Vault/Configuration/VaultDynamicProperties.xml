@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DynamicProperties>
+  <DynamicPropertiesCategory Category="3D component" Type="File">
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Material</DynamicProperty>
+    <DynamicProperty>Part Number</DynamicProperty>
+    <DynamicProperty>Weight</DynamicProperty>
+    <DynamicProperty>Spare-Wear Part</DynamicProperty>
+    <DynamicProperty>Dimensions/Size</DynamicProperty>
+    <DynamicProperty>Description 2</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Stock Number</DynamicProperty>
+    <DynamicProperty>Length (Cut)</DynamicProperty>
+    <DynamicProperty>Semi finished</DynamicProperty>
+    <DynamicProperty>Ident Number</DynamicProperty>
+    <DynamicProperty>Project Number</DynamicProperty>
+    <DynamicProperty>Source File</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Office" Type="File">
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Author</DynamicProperty>
+    <DynamicProperty Hidden="True">Comments</DynamicProperty>
+    <DynamicProperty>Engr Approved By</DynamicProperty>
+    <DynamicProperty>Keywords</DynamicProperty>
+    <DynamicProperty>Subject</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Base" Type="File">
+    <DynamicProperty>Author</DynamicProperty>
+    <DynamicProperty>Manager</DynamicProperty>
+    <DynamicProperty>Engr Approved By</DynamicProperty>
+    <DynamicProperty>Engineer</DynamicProperty>
+    <DynamicProperty>Designer</DynamicProperty>
+    <DynamicProperty>Stock Number</DynamicProperty>
+    <DynamicProperty>Part Number</DynamicProperty>
+    <DynamicProperty>Mfg Approved By</DynamicProperty>
+    <DynamicProperty>Material</DynamicProperty>
+    <DynamicProperty>Cost</DynamicProperty>
+    <DynamicProperty>Company</DynamicProperty>
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Subject</DynamicProperty>
+    <DynamicProperty>Keywords</DynamicProperty>
+    <DynamicProperty>Comments</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Project</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Engineering" Type="File">
+    <DynamicProperty>Author</DynamicProperty>
+    <DynamicProperty>Manager</DynamicProperty>
+    <DynamicProperty>Engr Approved By</DynamicProperty>
+    <DynamicProperty>Engineer</DynamicProperty>
+    <DynamicProperty>Designer</DynamicProperty>
+    <DynamicProperty>Stock Number</DynamicProperty>
+    <DynamicProperty>Part Number</DynamicProperty>
+    <DynamicProperty>Material</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Cost</DynamicProperty>
+    <DynamicProperty>Checked By</DynamicProperty>
+    <DynamicProperty>Company</DynamicProperty>
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Subject</DynamicProperty>
+    <DynamicProperty>Keywords</DynamicProperty>
+    <DynamicProperty>Comments</DynamicProperty>
+    <DynamicProperty>Mfg Approved By</DynamicProperty>
+    <DynamicProperty>Project</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Standard" Type="File">
+    <DynamicProperty>Author</DynamicProperty>
+    <DynamicProperty>Manager</DynamicProperty>
+    <DynamicProperty>Engr Approved By</DynamicProperty>
+    <DynamicProperty>Engineer</DynamicProperty>
+    <DynamicProperty>Designer</DynamicProperty>
+    <DynamicProperty>Stock Number</DynamicProperty>
+    <DynamicProperty>Part Number</DynamicProperty>
+    <DynamicProperty>Mfg Approved By</DynamicProperty>
+    <DynamicProperty>Material</DynamicProperty>
+    <DynamicProperty>Cost</DynamicProperty>
+    <DynamicProperty>Company</DynamicProperty>
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Subject</DynamicProperty>
+    <DynamicProperty>Keywords</DynamicProperty>
+    <DynamicProperty>Comments</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Project</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Organisation" Type="CustomObject">
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Ident Number</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Person" Type="CustomObject">
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Email Recipient</DynamicProperty>
+    <DynamicProperty>First Name</DynamicProperty>
+    <DynamicProperty>Last Name</DynamicProperty>
+    <DynamicProperty>Ident Number</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Transmittal" Type="CustomObject">
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Ident Number</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Project" Type="Folder">
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Date Start</DynamicProperty>
+    <DynamicProperty>Date End</DynamicProperty>
+    <DynamicProperty>Customer</DynamicProperty>
+    <DynamicProperty>Ident Number</DynamicProperty>
+  </DynamicPropertiesCategory>
+</DynamicProperties>
