@@ -237,7 +237,7 @@
     <Resource Include="Vault\factory-edit.ico" />
     <Resource Include="Vault\factory-info.ico" />
     <Resource Include="Vault\factory.ico" />
-    <Resource Include="Vault\Folder2017.xml" />
+    <Resource Include="Vault\Folder2018.xml" />
     <Resource Include="Vault\Lock.ico" />
     <Resource Include="Vault\Log.ico" />
     <Resource Include="Vault\MenuDefinitions.xml" />

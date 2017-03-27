@@ -259,3 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/VDS Quickstart 2018/VDS Quickstart 2018 RC00.zip
