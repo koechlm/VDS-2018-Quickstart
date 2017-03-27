@@ -15,10 +15,7 @@
 #this function will be called to check if the Ok button can be enabled
 function ActivateOkButton
 {
-	#region Quickstart
-		#return Validate;
-		return $true #using dynamic categories the validation is done against prop def criterias
-	#endregion
+		return Validate;
 }
 
 # sample validation function
@@ -44,7 +41,7 @@ function Validate
 		}
 		"CustomObjectWindow"
 		{
-			#foreach ($func in dir function:ValidateCustomObject*) { if(!(&$func)) { return $false } }
+			foreach ($func in dir function:ValidateCustomObject*) { if(!(&$func)) { return $false } }
 			return $true
 		}
 		default { return $true }
@@ -54,18 +51,16 @@ function Validate
 
 # sample validation function for the Title property
 # if the Title is empty the validation will fail
-function ValidateFileTitle
+#function ValidateFileTitle
 {
-	return $true
 	#if($Prop["_XLTN_TITLE"].Value) { return $true}
 	#return $false;
 }
 
-# sample validation function for the FileName property
 # if the File Name is empty the validation will fail
 function ValidateFileName
 {
-	if($Prop["_FileName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
+	if($dsWindow.FindName("FILENAME").Text -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{
 		return $true;
 	}
@@ -74,7 +69,7 @@ function ValidateFileName
 
 function ValidateFolderName
 {
-	if($Prop["_FolderName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
+	if($dsWindow.FindName("FOLDERNAME").Text -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{
 		return $true;
 	}
@@ -83,7 +78,7 @@ function ValidateFolderName
 
 function ValidateCustomObjectName
 {
-	if($Prop["_CustomObjectName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
+	if($dsWindow.FindName("CUSTOMOBJECTNAME").Text -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{
 		return $true;
 	}
