@@ -137,11 +137,8 @@ function InitializeWindow
 									$_ModelPath = $_ModelFile.DirectoryName	
 									$Prop["DocNumber"].Value = $_ModelName
 									#retrieve the matching folder selection of the model's path
-									$_1 = $_ModelPath.IndexOf($Prop["_WorkSpacePath"].Value)
-									$_3 = $_ModelPath.SubString($_1).Replace($Prop["_WorkSpacePath"].Value + "\", "")
-									$Prop["Folder"].Value = $_ModelPath.SubString($_1).Replace($Prop["_WorkSpacePath"].Value + "\", "")
-									$_PathNames = $Prop["Folder"].Value.Split("\")
-									mActivateBreadCrumbCmbs $_PathNames
+									$_localPath = $VaultConnection.WorkingFoldersManager.GetWorkingFolder($mappedRootPath)
+									$Prop["Folder"].Value = $_ModelPath.Replace($_localPath, "")
 								}
 							}
 						}
@@ -175,11 +172,8 @@ function InitializeWindow
 									$_ModelPath = $_ModelFile.DirectoryName	
 									$Prop["DocNumber"].Value = $_ModelName
 									#retrieve the matching folder selection of the model's path
-									$_1 = $_ModelPath.IndexOf($Prop["_WorkSpacePath"].Value)
-									$_3 = $_ModelPath.SubString($_1).Replace($Prop["_WorkSpacePath"].Value + "\", "")
-									$Prop["Folder"].Value = $_ModelPath.SubString($_1).Replace($Prop["_WorkSpacePath"].Value + "\", "")
-									$_PathNames = $Prop["Folder"].Value.Split("\")
-									mActivateBreadCrumbCmbs $_PathNames
+									$_localPath = $VaultConnection.WorkingFoldersManager.GetWorkingFolder($mappedRootPath)
+									$Prop["Folder"].Value = $_ModelPath.Replace($_localPath, "")
 								}
 							}
 						}

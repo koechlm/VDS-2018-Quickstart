@@ -219,7 +219,7 @@
         </Border>
         <!--Grid for Data Sheet-->
         <!--End Grid for Data Sheet-->
-        <GroupBox x:Name="GroupPath" Header="Path" Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="0"
+        <GroupBox x:Name="GroupPath" Header="{Binding UIString[LBL5], FallbackValue=Path}" Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="0"
                   ToolTip="Local Path" Margin="-6,0,0,0">
             <TextBox Text="{Binding PathAndFileNameHandler.Path}"
                      IsReadOnly="True"

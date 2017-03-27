@@ -222,21 +222,6 @@ function OnTabContextChanged
 
 function GetNewCustomObjectName
 {
-	$dsDiag.Trace(">> GetNewCustomObjectName")
-	#region Default
-		#if($dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
-		#{	
-		#	$dsDiag.Trace("read text from TextBox CUSTOMOBJECTNAME")
-		#	$customObjectName = $dsWindow.FindName("CUSTOMOBJECTNAME").Text
-		#	$dsDiag.Trace("customObjectName = $customObjectName")
-		#}
-		#else{
-		#	$dsDiag.Trace("-> GenerateNumber")
-		#	$customObjectName = $Prop["_GeneratedNumber"].Value
-		#	$dsDiag.Trace("customObjectName = $customObjectName")
-		#}
-	#endregion
-
 	#region Quickstart
 		$m_Cat = $Prop["_Category"].Value
 		switch ($m_Cat)
@@ -253,20 +238,20 @@ function GetNewCustomObjectName
 
 			Default 
 			{
-				$dsDiag.Trace("-- GetNewObjectName Default = all categories ---")
-				if($dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty -eq $false)
-				{
-					if($Prop["_XLTN_IDENTNUMBER"]){ $Prop["_XLTN_IDENTNUMBER"].Value = $Prop["_GeneratedNumber"].Value}
+				#region - default configuration's behavior
+				if($dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
+				{	
+					#$dsDiag.Trace("read text from TextBox CUSTOMOBJECTNAME")
+					$customObjectName = $dsWindow.FindName("CUSTOMOBJECTNAME").Text
+					#$dsDiag.Trace("customObjectName = $customObjectName")
 				}
-				$customObjectName = $dsWindow.FindName("CUSTOMOBJECTNAME").Text
-				$dsDiag.Trace("--- txtName returns $customObjectName ") 
-				IF ($customObjectName -eq "") 
-				{ 
-					$customObjectName = $Prop["_XLTN_TITLE"].Value
-					$dsDiag.Trace("--- Title gets the new object name") 
+				else{
+					#$dsDiag.Trace("-> GenerateNumber")
+					$customObjectName = $Prop["_GeneratedNumber"].Value
+					#$dsDiag.Trace("customObjectName = $customObjectName")
 				}
-				$dsDiag.Trace("--- GetNewCustomObjectName returns $customObjectName") 
 				return $customObjectName
+				#endregion - default configuration's behavior
 			}
 		}
 	#endregion Quickstart
