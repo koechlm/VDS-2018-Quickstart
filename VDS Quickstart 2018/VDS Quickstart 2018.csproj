@@ -81,7 +81,7 @@
     </EmbeddedResource>
     <None Include="CAD\addins\breadCrumb.ps1" />
     <None Include="CAD\addins\Default.ps1" />
-    <None Include="CAD\Configuration\AutoCAD-Mechanical.zip" />
+    <None Include="CAD\Configuration\AutoCAD-Mechanical\AutoCAD.cfg" />
     <None Include="CAD\Configuration\AutoCAD.cfg" />
     <None Include="CAD\Configuration\Inventor.cfg" />
     <None Include="Properties\Settings.settings">
@@ -108,6 +108,10 @@
     <None Include="VDS 2018 Help EN.mmap" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="CAD\Configuration\AutoCAD-Mechanical\AutoCAD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CAD\Configuration\AutoCAD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -193,6 +197,7 @@
     <Resource Include="en-US\PropertyTranslations.xml" />
     <Resource Include="en-US\UIStrings.xml" />
     <Resource Include="Vault\About.ico" />
+    <Resource Include="CAD\Configuration\AutoCAD-Mechanical\AutoCadDynamicProperties.xml" />
     <Content Include="Vault\addinVault\VDSUtils.dll" />
     <Resource Include="Vault\Claim-add.ico" />
     <Resource Include="Vault\Claim-edit.ico" />

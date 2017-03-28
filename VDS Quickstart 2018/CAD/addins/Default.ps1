@@ -354,7 +354,7 @@ function GetNumSchms
 					$Prop["_NumSchm"].Value = $_FilteredNumSchems[0].Name
 					$dsWindow.FindName("NumSchms").IsEnabled = $true
 					$noneNumSchm = New-Object 'Autodesk.Connectivity.WebServices.NumSchm'
-					$noneNumSchm.Name = "None"
+					$noneNumSchm.Name = $UIString["LBL77"]
 					$_FilteredNumSchems += $noneNumSchm
 					return $_FilteredNumSchems
 				#end Quickstart
@@ -710,14 +710,17 @@ function mActivateBreadCrumbCmbs ([System.Collections.ArrayList] $_PathNames)
 				$i +=1
 			}
 			#$dsDiag.Trace("Index of current name: $_IndexToActivate ")
-			$dsWindow.FindName("cmbBreadCrumb_"+$index).SelectedIndex = $_IndexToActivate
-			$dsWindow.FindName("cmbBreadCrumb_"+$index).IsDropDownOpen = $false #in general we open the pulldown in breadcrumb.ps1
+			If($_IndexToActivate)
+			{
+				$dsWindow.FindName("cmbBreadCrumb_"+$index).SelectedIndex = $_IndexToActivate
+				$dsWindow.FindName("cmbBreadCrumb_"+$index).IsDropDownOpen = $false #in general we open the pulldown in breadcrumb.ps1
+			}
 			#$global:_mBreadCrumbsIndexActivated = $true
 		}
 	} #end try
 	catch [System.Exception]
 	{		
-		[System.Windows.MessageBox]::Show($error)
+		[System.Windows.MessageBox]::Show($error, "Quickstart-Activate Last Used Folder")
 	}
 }
 

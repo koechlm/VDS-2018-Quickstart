@@ -77,6 +77,7 @@
   <UIString ID="LBL74">Optionen für ausgewähltes Dateiformat festlegen</UIString>
   <UIString ID="LBL75">Material</UIString>
   <UIString ID="LBL76">Bestandsnummer</UIString>
+  <UIString ID="LBL77">Keine</UIString>
   <UIString ID="BTN1">OK</UIString>
   <UIString ID="BTN2">Abbrechen</UIString>
   <UIString ID="BTN3">Optionen</UIString>
@@ -130,13 +131,14 @@
   <UIString ID="VAL10">Eingabezeichenfolge hatte falsches Format</UIString>
   <!--AutoCAD title block attributes / file properties for dynamic properties-->
   <!--use to change display name for localization or user friendly naming-->
-  <UIString ID="GEN-TITLE-DES1">Schriftfeld</UIString>
+  <UIString ID="GEN-TITLE-DES1">Zeichnung-Titel</UIString>
   <UIString ID="GEN-TITLE-DES2">Zeichnungs-Untertitel</UIString>
+  <UIString ID="Titel">Zeichnung-Titel</UIString>
+  <UIString ID="Thema">Zeichnungs-Untertitel</UIString>
   <!--Inventor custom iProperties Displaynames for dynamic properties-->
   <!--use to change display name for localization or user friendly naming-->
   <!--<UIString ID="aim_description1">Beschreibung Kurztext</UIString>-->
-  <UIString ID="Title_EN">Titel EN</UIString>
-  <UIString ID="Title">Titel</UIString>
+
   <!--Inventor custom iProperties Displaynames for dynamic properties-->
   
   <!--Vault Categories-->
@@ -147,6 +149,8 @@
   <UIString ID="CAT5">Ordner</UIString>
   <UIString ID="CAT6">Projekt</UIString>
 
+  <UIString ID="TLT1">Lokaler Pfad</UIString>
+  
   <!--Quickstart Multilang Strings Start-->
 
     <!--Quickstart Category Names (additional ones not in default)-->

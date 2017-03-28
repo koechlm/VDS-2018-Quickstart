@@ -238,7 +238,7 @@
         <Grid x:Name="grdCatProps" Grid.Column="1" Margin="5,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto"
               ScrollViewer.CanContentScroll="True">
             <DataGrid x:Name="DSDynCatPropGrid" MaxHeight="350"
-                      ToolTip="{Binding UIString[63], FallbackValue='Category Properties'}"
+                      ToolTip="{Binding UIString[LBL63], FallbackValue='Category Properties'}"
                       ItemsSource="{Binding DynamicProperties}"
                       AutoGenerateColumns="False"
                       HeadersVisibility="Column"

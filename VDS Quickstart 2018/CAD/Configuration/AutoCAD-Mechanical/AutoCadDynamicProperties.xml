@@ -9,11 +9,11 @@
   </DynamicPropertiesCategory>
   <DynamicPropertiesCategory Category="Drawing AutoCAD">
     <DynamicProperty>DocNumber</DynamicProperty>
-    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Drawing Title</DynamicProperty>
     <DynamicProperty>Description</DynamicProperty>
     <DynamicProperty>Part Number</DynamicProperty>
-    <DynamicProperty>Material</DynamicProperty>
     <DynamicProperty>Dimensions</DynamicProperty>
+    <DynamicProperty>Material</DynamicProperty>
     <DynamicProperty>Weight</DynamicProperty>
     <DynamicProperty>Format</DynamicProperty>
     <DynamicProperty>Scale</DynamicProperty>

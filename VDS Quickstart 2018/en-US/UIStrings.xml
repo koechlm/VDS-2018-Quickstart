@@ -77,6 +77,7 @@
   <UIString ID="LBL74">Set options for selected file format</UIString>
   <UIString ID="LBL75">Material</UIString>
   <UIString ID="LBL76">Stock Number</UIString>
+  <UIString ID="LBL77">None</UIString>
   <UIString ID="BTN1">OK</UIString>
   <UIString ID="BTN2">Cancel</UIString>
   <UIString ID="BTN3">Options</UIString>
@@ -132,9 +133,12 @@
   <!--use to change display name for localization or user friendly naming-->
   <UIString ID="GEN-TITLE-DES1">Drawing Title</UIString>
   <UIString ID="GEN-TITLE-DES2">Drawing Subtitle</UIString>
+  <UIString ID="Title">Drawing Title</UIString>
+  <UIString ID="Subject">Drawing Subtitle</UIString>
   <!--Inventor custom iProperties Displaynames for dynamic properties-->
   <!--use to change display name for localization or user friendly naming-->
   <!--<UIString ID="aim_description1">Description</UIString>-->
+  
   <!--Inventor custom iProperties Displaynames for dynamic properties-->
   
   <!--Vault Categories-->
@@ -144,6 +148,8 @@
   <UIString ID="CAT4">Base</UIString>
   <UIString ID="CAT5">Folder</UIString>
   <UIString ID="CAT6">Project</UIString>
+
+  <UIString ID="TLT1">Local path</UIString>
   
   <!--Quickstart Multilang Strings Start-->
   
