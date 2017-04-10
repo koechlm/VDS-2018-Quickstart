@@ -122,7 +122,13 @@ function InitializeWindow
 					$Prop["_Category"].Value = $UIString["CAT1"]
 				}
 			}
-						
+			#region Quickstart to get category from selected template
+			$dsWindow.FindName("DocTypeCombo").add_SelectionChanged({
+					mResetTemplates
+				})
+			$dsWindow.FindName("TemplateCB").add_SelectionChanged({
+				m_TemplateChanged})
+			#endregion Quickstart			
 		}
 		"FolderWindow"
 		{
@@ -497,9 +503,6 @@ function m_CategoryChanged
 		"FileWindow"
 		{
 			#Quickstart uses the default numbering scheme for files; GoTo GetNumSchms function to disable this filter incase you'd like to apply numbering per category for files as well
-			$dsWindow.FindName("TemplateCB").add_SelectionChanged({
-				m_TemplateChanged
-			})
 			$Prop['_XLTN_AUTHOR'].Value = $VaultConnection.UserName
 		}
 
@@ -566,6 +569,10 @@ function mHelp ([Int] $mHContext) {
 	{
 		[System.Windows.MessageBox]::Show("Help Target not found", "Vault Quickstart Client")
 	}
+}
+function mResetTemplates
+{
+	$dsWindow.FindName("TemplateCB").ItemsSource = $dsWindow.DataContext.Templates
 }
 
 #endregion quickstart

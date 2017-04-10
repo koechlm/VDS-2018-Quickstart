@@ -189,7 +189,7 @@
         </Style>
         <!-- This XmlDataProvider is used for defining Name/TemplatePath pairs that are used in the combo box "Document Type" and can be easily extended -->
         <XmlDataProvider x:Key="DocTypes"
-                         Source="C:\ProgramData\Autodesk\Vault 2017\Extensions\DataStandard\Vault\Configuration\File.xml"
+                         Source="C:\ProgramData\Autodesk\Vault 2018\Extensions\DataStandard\Vault\Configuration\File.xml"
                          XPath="/DocTypeData" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
@@ -240,7 +240,7 @@
                       SelectedValuePath="Path"
                       SelectedValue="{Binding TemplatePath}"
                       SelectedIndex="0"
-                      ItemsSource="{Binding Source={StaticResource DocTypes}, XPath=DocTypeInfo}"
+                      ItemsSource="{Binding Source={StaticResource DocTypes}, XPath=DocTypeInfo, Mode=OneTime}"
                       Style="{StaticResource DocTypeStyle}" />
             <Label Content="{Binding UIString[LBL9], FallbackValue=Templates}" Grid.Row="1" Grid.Column="0"
                    Visibility="{Binding Visibility, ElementName=TemplateCB}" />

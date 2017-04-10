@@ -51,7 +51,10 @@ function InitializeWindow
 		{
 			$rootFolder = $vault.DocumentService.GetFolderByPath($mappedRootPath)
     		$root = New-Object PSObject -Property @{ Name = $rootFolder.Name; ID=$rootFolder.Id }
+			$global:expandBreadCrumb = $false
     		AddCombo -data $root
+			$paths = $Prop["_SuggestedVaultPath"].Value.Split('\\',[System.StringSplitOptions]::RemoveEmptyEntries)
+			
 		}
 		catch [System.Exception]
 		{		
@@ -59,8 +62,9 @@ function InitializeWindow
 		}		
 
 		#region Quickstart
-			$_PathNames = mReadLastUsedFolder
-			mActivateBreadCrumbCmbs $_PathNames	
+			#toDo: configuration to use last used or suggested folder? Suggested is probably the better solution
+			#$path = mReadLastUsedFolder
+			mActivateBreadCrumbCmbs $path
 		#endregion
     }
 
@@ -113,8 +117,8 @@ function InitializeWindow
 						
 						if (($Prop["_FileExt"].Value -eq "idw") -or ($Prop["_FileExt"].Value -eq "dwg" )) 
 						{
-							[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\VDSUtils.dll')
-							$_mInvHelpers = New-Object VDSUtils.InvHelpers #NEW 2018 hand over the parent inventor application, to ensure the correct instance
+							[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+							$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers #NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)#NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$Prop["Title"].Value = $_mInvHelpers.m_GetMainViewModelPropValue($Application, $_ModelFullFileName,"Title")
 							$Prop["Description"].Value = $_mInvHelpers.m_GetMainViewModelPropValue($Application, $_ModelFullFileName,"Description")
@@ -145,8 +149,8 @@ function InitializeWindow
 						#set path & filename for IPN
 						if ($Prop["_FileExt"].Value -eq "ipn") 
 						{
-							[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\VDSUtils.dll')
-							$_mInvHelpers = New-Object VDSUtils.InvHelpers #NEW 2018 hand over the parent inventor application, to ensure the correct instance
+							[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+							$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers #NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)#NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$Prop["Title"].Value = $_mInvHelpers.m_GetMainViewModelPropValue($Application, $_ModelFullFileName,"Title")
 							$Prop["Description"].Value = $_mInvHelpers.m_GetMainViewModelPropValue($Application, $_ModelFullFileName,"Description")
@@ -219,8 +223,8 @@ function InitializeWindow
 								}
 								If ($Application.ActiveDocument.DocumentType -eq '12292') # = kDrawingDocument, get the main view's model path / name
 								{
-									[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\VDSUtils.dll')
-									$_mInvHelpers = New-Object VDSUtils.InvHelpers
+									[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+									$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers
 									$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)
 									$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
 									$_ModelFile = Get-ChildItem $_ModelFullFileName
@@ -277,6 +281,7 @@ function InitializeWindow
 			#rules applying for other windows, e.g. FG, DA, TP and CH functional dialogs; SaveCopyAs dialog
 		}
 	}#end switch windows
+	$global:expandBreadCrumb = $true
 #$dsDiag.Trace("... Initialize window end <<")
 }#end InitializeWindow
 
@@ -681,46 +686,19 @@ function mWriteLastUsedFolder
 	}
 }
 
-function mActivateBreadCrumbCmbs ([System.Collections.ArrayList] $_PathNames)
+function mActivateBreadCrumbCmbs ([System.Collections.ArrayList] $paths)
 {
 	try
 	{	
-		for ($index = 0; $index -lt $_PathNames.Count; $index++) 
-		{
-			#retrieve the comb items index for the given name
-			$_activeCombo = $dsWindow.FindName("cmbBreadCrumb_"+$index)
-			$_cmbNames = @()
-			Foreach ($_cmbItem in $_activeCombo.Items) {
-				#$dsDiag.Trace("---$_cmbItem---")
-				$_cmbNames += $_cmbItem.Name
-			}
-			#$dsDiag.Trace("Combo $index Namelist = $_cmbNames")
-			#get the index of name in array
-			$_CurrentName = $_PathNames[$index] 
-			#$dsDiag.Trace("Current Name: $_CurrentName ")
-			if ($_CurrentName -eq ".") { break;}
-			$i = 0
-			$_cmbNames | ForEach-Object {
-				$_1 = $_cmbNames.count
-				$_2 = $_cmbNames[$i]
-				#$dsDiag.Trace(" Counter: $i of $_1 value: $_2  ; CurrentName: $_CurrentName ")
-				If ($_cmbNames[$i] -eq $_CurrentName) {
-					$_IndexToActivate = $i
-				}
-				$i +=1
-			}
-			#$dsDiag.Trace("Index of current name: $_IndexToActivate ")
-			If($_IndexToActivate)
+		for($i=0;$i -lt $paths.Count;$i++)
 			{
-				$dsWindow.FindName("cmbBreadCrumb_"+$index).SelectedIndex = $_IndexToActivate
-				$dsWindow.FindName("cmbBreadCrumb_"+$index).IsDropDownOpen = $false #in general we open the pulldown in breadcrumb.ps1
+				$cmb = $dsWindow.FindName("cmbBreadCrumb_"+$i)
+				if ($cmb -ne $null) { $cmb.SelectedValue = $paths[$i] }
 			}
-			#$global:_mBreadCrumbsIndexActivated = $true
-		}
 	} #end try
 	catch [System.Exception]
 	{		
-		[System.Windows.MessageBox]::Show($error, "Quickstart-Activate Last Used Folder")
+		[System.Windows.MessageBox]::Show($error, "Quickstart-Activate Folder Selection")
 	}
 }
 

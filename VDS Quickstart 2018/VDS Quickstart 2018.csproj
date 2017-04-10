@@ -198,7 +198,6 @@
     <Resource Include="en-US\UIStrings.xml" />
     <Resource Include="Vault\About.ico" />
     <Resource Include="CAD\Configuration\AutoCAD-Mechanical\AutoCadDynamicProperties.xml" />
-    <Content Include="Vault\addinVault\VDSUtils.dll" />
     <Resource Include="Vault\Claim-add.ico" />
     <Resource Include="Vault\Claim-edit.ico" />
     <Resource Include="Vault\Claim-info.ico" />
@@ -284,6 +283,9 @@
     <Resource Include="Vault\user-w-info.ico" />
     <Resource Include="Vault\user-w.ico" />
     <Resource Include="Vault\vault.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Vault\addinVault\QuickstartUtilityLibrary.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
