@@ -54,7 +54,6 @@ function InitializeWindow
 			$global:expandBreadCrumb = $false
     		AddCombo -data $root
 			$paths = $Prop["_SuggestedVaultPath"].Value.Split('\\',[System.StringSplitOptions]::RemoveEmptyEntries)
-			
 		}
 		catch [System.Exception]
 		{		
@@ -62,9 +61,8 @@ function InitializeWindow
 		}		
 
 		#region Quickstart
-			#toDo: configuration to use last used or suggested folder? Suggested is probably the better solution
-			#$path = mReadLastUsedFolder
-			mActivateBreadCrumbCmbs $path
+			If(!$paths){ $paths = mReadLastUsedFolder}
+			mActivateBreadCrumbCmbs $paths
 		#endregion
     }
 
@@ -133,18 +131,18 @@ function InitializeWindow
 								IF ($mCatName) { $Prop["_Category"].Value = $UIString["CAT1"]}
 							}
 							#set the path to the first drawings view's model path if GFN4S is false
-							If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
-							{	
-								If ($_ModelFullFileName) { 
-									$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
-									$_ModelFile = Get-ChildItem $_ModelFullFileName
-									$_ModelPath = $_ModelFile.DirectoryName	
-									$Prop["DocNumber"].Value = $_ModelName
-									#retrieve the matching folder selection of the model's path
-									$_localPath = $VaultConnection.WorkingFoldersManager.GetWorkingFolder($mappedRootPath)
-									$Prop["Folder"].Value = $_ModelPath.Replace($_localPath, "")
-								}
-							}
+							#If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
+							#{	
+							#	If ($_ModelFullFileName) { 
+							#		$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
+							#		$_ModelFile = Get-ChildItem $_ModelFullFileName
+							#		$_ModelPath = $_ModelFile.DirectoryName	
+							#		$Prop["DocNumber"].Value = $_ModelName
+							#		#retrieve the matching folder selection of the model's path
+							#		$_localPath = $VaultConnection.WorkingFoldersManager.GetWorkingFolder($mappedRootPath)
+							#		$Prop["Folder"].Value = $_ModelPath.Replace($_localPath, "")
+							#	}
+							#}
 						}
 						#set path & filename for IPN
 						if ($Prop["_FileExt"].Value -eq "ipn") 
@@ -168,83 +166,81 @@ function InitializeWindow
 								#$dsDiag.Trace("Set path, filename and properties for IPN: At least one custom property failed, most likely it did not exist and is not part of the cfg ")
 							}
 							#set the path to the first model's path if GFN4S is false
-							If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
-							{
-								If ($_ModelFullFileName) { 
-									$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
-									$_ModelFile = Get-ChildItem $_ModelFullFileName
-									$_ModelPath = $_ModelFile.DirectoryName	
-									$Prop["DocNumber"].Value = $_ModelName
-									#retrieve the matching folder selection of the model's path
-									$_localPath = $VaultConnection.WorkingFoldersManager.GetWorkingFolder($mappedRootPath)
-									$Prop["Folder"].Value = $_ModelPath.Replace($_localPath, "")
-								}
-							}
+							#If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
+							#{
+							#	If ($_ModelFullFileName) { 
+							#		$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
+							#		$_ModelFile = Get-ChildItem $_ModelFullFileName
+							#		$_ModelPath = $_ModelFile.DirectoryName	
+							#		$Prop["DocNumber"].Value = $_ModelName
+							#		#retrieve the matching folder selection of the model's path
+							#		$_localPath = $VaultConnection.WorkingFoldersManager.GetWorkingFolder($mappedRootPath)
+							#		$Prop["Folder"].Value = $_ModelPath.Replace($_localPath, "")
+							#	}
+							#}
 						}
 
 						if (($_ModelFullFileName -eq "") -and ($global:mGFN4Special -eq $false)) 
 						{ 
 							[System.Windows.MessageBox]::Show($UIString["MSDCE_MSG00"],"Vault MFG Quickstart")
 							$dsWindow.add_Loaded({
-										#[System.Windows.MessageBox]::Show("Will skip VDS Dialog for Drawings without model view; 
-										#	enable Option - Generate File Numbers for Drawings or add model view.","Vault MFG Quickstart")
+										# Will skip VDS Dialog for Drawings without model view; 
 										$dsWindow.CancelWindowCommand.Execute($this)})
-							#$dsWindow.FindName("btnOK").ToolTip = $UIString["MSDCE_MSG00"]
-							#$dsWindow.FindName("btnOK").IsEnabled = $false
 						}
 					} # end of copy mode = false check
 
-					if ($Prop["_CopyMode"].Value -eq $true) 
+					if ($Prop["_CopyMode"].Value -and @("DWG","IDW","IPN") -contains $Prop["_FileExt"].Value)
 					{
-						if (($Prop["_FileExt"].Value -eq "idw") -or ($Prop["_FileExt"].Value -eq "dwg" )) 
-						{
-							$mCatName = $UIString["MSDCE_CAT00"] 
-							If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
-							{
-								# differ current doc = drawing -> drawing copy; current doc != drawing -> model incl. drawing copy
-								# in both cases the target folder for the drawing = folder of the model. User's have to turn on option "generate file numbers for drawings and presentations, in case folder and or number is a new selection
-								If ($Application.ActiveDocument.DocumentType -ne '12292') #we process a drawing of the current active model, get it's model path / name
-								{
-									# what about a drawing copy, that results from current doc = IAM and drawing is a copy of the new replace-copy model (this model is not active!)
-									# => compare current model and %temp% saved model; id identical we are processing a copy only, id different, we are processing a replace by copy
-									$_ModelFullFileName = $Application.ActiveDocument.FullFileName
-									$m_TempFile = $env:TEMP + "\VDSTempModelPath.txt"
-									$_lastCopyfileName = Get-Content $m_TempFile
-									if ($_ModelFullFileName -ne $_lastCopyfileName)
-									{
-										#$dsDiag.Trace("............... processing a 'replace incl. Drawing' copy drawing creation.............")
-										$_ModelFullFileName = $_lastCopyfileName
-									}
-									$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
-									$_ModelFile = Get-ChildItem $_ModelFullFileName
-									$_ModelPath = $_ModelFile.DirectoryName
-									$Prop["_FilePath"].Value = $_ModelPath
-									$Prop["DocNumber"].Value = $_ModelName
-								}
-								If ($Application.ActiveDocument.DocumentType -eq '12292') # = kDrawingDocument, get the main view's model path / name
-								{
-									[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
-									$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers
-									$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)
-									$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
-									$_ModelFile = Get-ChildItem $_ModelFullFileName
-									$_ModelPath = $_ModelFile.DirectoryName
-									$Prop["_FilePath"].Value = $_ModelPath
-									$Prop["DocNumber"].Value = $_ModelName
-								}
-							}
-						}
-					} #end of copymode = true 
+						$Prop["DocNumber"].Value = $Prop["DocNumber"].Value.TrimStart($UIString["CFG2"])
+					}
+					#if ($Prop["_CopyMode"].Value -eq $true) 
+					#{
+					#	if (($Prop["_FileExt"].Value -eq "idw") -or ($Prop["_FileExt"].Value -eq "dwg" )) 
+					#	{
+					#		$mCatName = $UIString["MSDCE_CAT00"] 
+					#		If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
+					#		{
+					#			# differ current doc = drawing -> drawing copy; current doc != drawing -> model incl. drawing copy
+					#			# in both cases the target folder for the drawing = folder of the model. User's have to turn on option "generate file numbers for drawings and presentations, in case folder and or number is a new selection
+					#			If ($Application.ActiveDocument.DocumentType -ne '12292') #we process a drawing of the current active model, get it's model path / name
+					#			{
+					#				# what about a drawing copy, that results from current doc = IAM and drawing is a copy of the new replace-copy model (this model is not active!)
+					#				# => compare current model and %temp% saved model; id identical we are processing a copy only, id different, we are processing a replace by copy
+					#				$_ModelFullFileName = $Application.ActiveDocument.FullFileName
+					#				$m_TempFile = $env:TEMP + "\VDSTempModelPath.txt"
+					#				$_lastCopyfileName = Get-Content $m_TempFile
+					#				if ($_ModelFullFileName -ne $_lastCopyfileName)
+					#				{
+					#					#$dsDiag.Trace("............... processing a 'replace incl. Drawing' copy drawing creation.............")
+					#					$_ModelFullFileName = $_lastCopyfileName
+					#				}
+					#				$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
+					#				$_ModelFile = Get-ChildItem $_ModelFullFileName
+					#				$_ModelPath = $_ModelFile.DirectoryName
+					#				$Prop["_FilePath"].Value = $_ModelPath
+					#				$Prop["DocNumber"].Value = $_ModelName
+					#			}
+					#			If ($Application.ActiveDocument.DocumentType -eq '12292') # = kDrawingDocument, get the main view's model path / name
+					#			{
+					#				[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+					#				$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers
+					#				$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)
+					#				$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
+					#				$_ModelFile = Get-ChildItem $_ModelFullFileName
+					#				$_ModelPath = $_ModelFile.DirectoryName
+					#				$Prop["_FilePath"].Value = $_ModelPath
+					#				$Prop["DocNumber"].Value = $_ModelName
+					#			}
+					#		}
+					#	}
+					#} #end of copymode = true 
 					#$dsDiag.Trace("CreateMode ended...<<")
-
 
 					#$dsDiag.Trace("... CreateMode Section finished <<")
 				}
 				$false # EditMode = True
 				{
-					#$dsDiag.Trace(">> EditMode Section executes...")
-
-					#$dsDiag.Trace("... EditMode Section finished <<")
+					#add specific action rules for edit mode here
 				}
 				default
 				{
@@ -282,7 +278,7 @@ function InitializeWindow
 		}
 	}#end switch windows
 	$global:expandBreadCrumb = $true
-#$dsDiag.Trace("... Initialize window end <<")
+	#$dsDiag.Trace("... Initialize window end <<")
 }#end InitializeWindow
 
 function AddinLoaded
@@ -387,21 +383,24 @@ function OnPostCloseDialog
 		"InventorWindow"
 		{
 			#region Quickstart
-			
-				mWriteLastUsedFolder
-
-				if ($Prop["_CopyMode"].Value -eq $true) 
+				if (!($Prop["_CopyMode"].Value -and !$Prop["_GenerateFileNumber4SpecialFiles"].Value -and @("DWG","IDW","IPN") -contains $Prop["_FileExt"].Value))
 				{
-					#register the model's copy to derive it's drawings copy name subsequently
-					if (($Prop["_CopyMode"].Value -eq $true) -and ($global:mGFN4Special -eq $false) -and ($Prop["_FileExt"].Value -ne "idw") -and ($Prop["_FileExt"].Value -ne "dwg")) 
-					{
-						#$dsDiag.Trace("copy of iam, ipt, ipn and no new number for drawings")
-						$m_TempFile = $env:TEMP + "\VDSTempModel.txt"
-						$Prop["DocNumber"].Value | Out-File $m_TempFile
-						$m_TempFile = $env:TEMP + "\VDSTempModelPath.txt"
-						$dsWindow.DataContext.PathAndFileNameHandler.FullFileName | Out-File $m_TempFile
-					}
+					mWriteLastUsedFolder
 				}
+
+				#if ($Prop["_CopyMode"].Value -eq $true) 
+				#{
+				#	#register the model's copy to derive it's drawings copy name subsequently
+				#	if (($Prop["_CopyMode"].Value -eq $true) -and ($global:mGFN4Special -eq $false) -and ($Prop["_FileExt"].Value -ne "idw") -and ($Prop["_FileExt"].Value -ne "dwg")) 
+				#	{
+				#		#$dsDiag.Trace("copy of iam, ipt, ipn and no new number for drawings")
+				#		$m_TempFile = $env:TEMP + "\VDSTempModel.txt"
+				#		$Prop["DocNumber"].Value | Out-File $m_TempFile
+				#		$m_TempFile = $env:TEMP + "\VDSTempModelPath.txt"
+				#		$dsWindow.DataContext.PathAndFileNameHandler.FullFileName | Out-File $m_TempFile
+				#	}
+				#}
+
 				if ($Prop["_CreateMode"].Value -and !$Prop["Part Number"].Value) #we empty the part number on initialize: if there is no other function to provide part numbers we should apply the Inventor default
 				{
 					$Prop["Part Number"].Value = $Prop["DocNumber"].Value
@@ -458,7 +457,7 @@ function mHelp ([Int] $mHContext) {
 	}
 }
 
-function m_ReadShortCuts {
+function mReadShortCuts {
 	if ($Prop["_CreateMode"].Value -eq $true) {
 		#$dsDiag.Trace(">> Looking for Shortcuts...")
 		$m_Server = $VaultConnection.Server
@@ -492,7 +491,7 @@ function m_ReadShortCuts {
 						$mScNames += $_.Name
 					}
 					catch {
-						#$dsDiag.Trace("... ERROR Filtering Shortcuts...")
+						$dsDiag.Trace("... ERROR Filtering Shortcuts...")
 					}
 				}
 			}
@@ -534,6 +533,7 @@ function mAddSc {
 	{
 		$mNewScName = $dsWindow.FindName("txtNewShortCut").Text
 		mAddShortCutByName ($mNewScName)
+		$dsWindow.FindName("lstBoxShortCuts").ItemsSource = mReadShortCuts
 	}
 	catch {}
 }
@@ -543,6 +543,7 @@ function mRemoveSc {
 	{
 		$_key = $dsWindow.FindName("lstBoxShortCuts").SelectedValue
 		mRemoveShortCutByName $_key
+		$dsWindow.FindName("lstBoxShortCuts").ItemsSource = mReadShortCuts
 	}
 	catch { }
 }
@@ -563,8 +564,7 @@ function mAddShortCutByName([STRING] $mScName)
 
 	try 
 	{
-		#$dsDiag.Trace(">> Continue to add ShortCut, creating new from template...")
-		
+		#$dsDiag.Trace(">> Continue to add ShortCut, creating new from template...")	
 		#read from template
 		$mShortCut = $global:m_XML.Folder.Shortcut | where { $_.Name -eq "Template"}
 		#clone the template completely and update name attribute and navigationcontext element
@@ -686,10 +686,11 @@ function mWriteLastUsedFolder
 	}
 }
 
-function mActivateBreadCrumbCmbs ([System.Collections.ArrayList] $paths)
+function mActivateBreadCrumbCmbs ($paths)
 {
 	try
 	{	
+		$global:expandBreadCrumb = $false
 		for($i=0;$i -lt $paths.Count;$i++)
 			{
 				$cmb = $dsWindow.FindName("cmbBreadCrumb_"+$i)
