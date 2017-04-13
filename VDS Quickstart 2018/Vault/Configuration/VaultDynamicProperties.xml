@@ -15,6 +15,21 @@
     <DynamicProperty>Ident Number</DynamicProperty>
     <DynamicProperty>Project Number</DynamicProperty>
     <DynamicProperty>Source File</DynamicProperty>
+    <DynamicProperty>Author</DynamicProperty>
+    <DynamicProperty>Project</DynamicProperty>
+    <DynamicProperty>Mfg Approved By</DynamicProperty>
+    <DynamicProperty>Manager</DynamicProperty>
+    <DynamicProperty>Engr Approved By</DynamicProperty>
+    <DynamicProperty>FDS Key</DynamicProperty>
+    <DynamicProperty>Designer</DynamicProperty>
+    <DynamicProperty>Engineer</DynamicProperty>
+    <DynamicProperty>Comments</DynamicProperty>
+    <DynamicProperty>Cost</DynamicProperty>
+    <DynamicProperty>Keywords</DynamicProperty>
+    <DynamicProperty>Subject</DynamicProperty>
+    <DynamicProperty>Company</DynamicProperty>
+    <DynamicProperty>Project Type</DynamicProperty>
+    <DynamicProperty>Checked By</DynamicProperty>
   </DynamicPropertiesCategory>
   <DynamicPropertiesCategory Category="Office" Type="File">
     <DynamicProperty>Title</DynamicProperty>
@@ -106,5 +121,7 @@
     <DynamicProperty>Date End</DynamicProperty>
     <DynamicProperty>Customer</DynamicProperty>
     <DynamicProperty>Ident Number</DynamicProperty>
+    <DynamicProperty>Project Number01</DynamicProperty>
+    <DynamicProperty>Project Number</DynamicProperty>
   </DynamicPropertiesCategory>
 </DynamicProperties>

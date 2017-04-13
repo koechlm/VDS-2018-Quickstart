@@ -15,6 +15,21 @@
     <DynamicProperty Hidden="True">G_L</DynamicProperty>
     <DynamicProperty Hidden="True">PL</DynamicProperty>
     <DynamicProperty>Source File</DynamicProperty>
+    <DynamicProperty>Project</DynamicProperty>
+    <DynamicProperty>Key Parameters</DynamicProperty>
+    <DynamicProperty>Project Type</DynamicProperty>
+    <DynamicProperty>Designer</DynamicProperty>
+    <DynamicProperty>Engineer</DynamicProperty>
+    <DynamicProperty>Mfg Approved by</DynamicProperty>
+    <DynamicProperty>Cost</DynamicProperty>
+    <DynamicProperty>Engr Approved by</DynamicProperty>
+    <DynamicProperty>Checked by</DynamicProperty>
+    <DynamicProperty>Author</DynamicProperty>
+    <DynamicProperty>Subject</DynamicProperty>
+    <DynamicProperty>Company</DynamicProperty>
+    <DynamicProperty>Manager</DynamicProperty>
+    <DynamicProperty>Comments</DynamicProperty>
+    <DynamicProperty>Keywords</DynamicProperty>
   </DynamicPropertiesCategory>
   <DynamicPropertiesCategory Category="Engineering">
     <DynamicProperty>Title</DynamicProperty>
@@ -49,6 +64,8 @@
     <DynamicProperty>Sheet</DynamicProperty>
     <DynamicProperty>Format</DynamicProperty>
     <DynamicProperty>Source File</DynamicProperty>
+    <DynamicProperty>Project Type</DynamicProperty>
+    <DynamicProperty>Type</DynamicProperty>
   </DynamicPropertiesCategory>
   <DynamicPropertiesCategory Category="3D Komponenten">
     <DynamicProperty>Titel</DynamicProperty>
@@ -69,5 +86,28 @@
     <DynamicProperty Hidden="True">Identnummer</DynamicProperty>
     <DynamicProperty>Entstanden aus</DynamicProperty>
     <DynamicProperty Hidden="True">G_L</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Asset Library">
+    <DynamicProperty>Stock Number</DynamicProperty>
+    <DynamicProperty>Key Parameters</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Part Number</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Factory Asset">
+    <DynamicProperty>Stock Number</DynamicProperty>
+    <DynamicProperty>Type</DynamicProperty>
+    <DynamicProperty>Key Parameters</DynamicProperty>
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Part Number</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Factory Layout">
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Project Number</DynamicProperty>
+    <DynamicProperty>Project Type</DynamicProperty>
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Part Number</DynamicProperty>
+    <DynamicProperty>Project</DynamicProperty>
   </DynamicPropertiesCategory>
 </DynamicsProperties>

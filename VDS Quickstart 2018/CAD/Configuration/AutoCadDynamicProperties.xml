@@ -19,5 +19,6 @@
     <DynamicProperty>Scale</DynamicProperty>
     <DynamicProperty>Sheet</DynamicProperty>
     <DynamicProperty>Source File</DynamicProperty>
+    <DynamicProperty>Project Type</DynamicProperty>
   </DynamicPropertiesCategory>
 </DynamicsProperties>

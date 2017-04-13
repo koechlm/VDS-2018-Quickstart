@@ -62,7 +62,7 @@ function InitializeWindow
 
 		#region Quickstart
 			If(!$paths){ $paths = mReadLastUsedFolder}
-			mActivateBreadCrumbCmbs $paths
+			mActivateBreadCrumbCmbs $paths		
 		#endregion
     }
 
@@ -73,8 +73,11 @@ function InitializeWindow
 		"InventorWindow"
 		{
 			#region Quickstart
+			#	there are some custom functions to enhance functionality:
+			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+			
 			#	initialize the context for Drawings or presentation files as these have Vault Option settings
-			$global:mGFN4Special = mReadGFN4S # GFN4S = Option "Generate File Numbers for Drawings & Presentations", IDW/DWG & IPN
+			$global:mGFN4Special = $Prop["_GenerateFileNumber4SpecialFiles"].Value
 			if ($global:mGFN4Special -eq $true)
 			{
 				$dsWindow.FindName("GFN4Special").IsChecked = $true # this checkbox is used by the XAML dialog styles, to enable / disable or show / hide controls
@@ -108,14 +111,73 @@ function InitializeWindow
 						IF ($mCatName) { $Prop["_Category"].Value = $UIString["CAT1"]}
 					}
 
-					#set path & filename for IDW/DWG and retrieve 3D model properties (Inventor captures these also, but too late; we are currently before save event transfers model properties to drawing properties) 
+					#region FDU Support --------------------------------------------------------------------------
+					
+					# Read FDS related internal meta data; required to manage particular workflows
+					$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers
+					$_mFdsKeys = $_mInvHelpers.m_GetFdsKeys($Application, @{})
+
+					# some FDS workflows require VDS cancellation; add the conditions to the event handler _Loaded below
+					$dsWindow.add_Loaded({
+						IF ($mSkipVDS -eq $true)
+						{
+							$dsWindow.CancelWindowCommand.Execute($this)
+							#$dsDiag.Trace("FDU-VDS EventHandler: Skip Dialog executed")	
+						}
+					})
+
+					# FDS workflows with individual settings					
+					$dsWindow.FindName("Categories").add_SelectionChanged({
+						If ($Prop["_Category"].Value -eq "Factory Asset" -and $Document.FileSaveCounter -eq 0) #don't localize name according FDU fixed naming
+						{
+							$paths = @("Factory Asset Library Source")
+							mActivateBreadCrumbCmbs $paths
+						}
+					})
+				
+					If($_mFdsKeys.ContainsKey("FdsType") -and $Document.FileSaveCounter -eq 0 )
+					{
+						#$dsDiag.Trace(" FDS File Type detected")
+						# for new assets we suggest to use the source file folder name, nothing else
+						If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Asset")
+						{
+							$Prop["_Category"].Value = "Factory Asset"
+						}
+						# skip for publishing the 3D temporary file save event for VDS
+						If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Asset" -and $Application.SilentOperation -eq $true)
+						{ 
+							#$dsDiag.Trace(" FDS publishing 3D - using temporary assembly silent mode: need to skip VDS!")
+							$global:mSkipVDS = $true
+						}
+						If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Asset" -and $Document.InternalName -ne $Application.ActiveDocument.InternalName)
+						{
+							#$dsDiag.Trace(" FDS publishing 3D: ActiveDoc.InternalName different from VDSDoc.Internalname: Verbose VDS")
+							$global:mSkipVDS = $true
+						}
+
+						# 
+						If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Layout" -and $_mFdsKeys.Count -eq 1)
+						{
+							#$dsDiag.Trace("3DLayout, not synced")
+							#try to activate category "Factory Layout"
+							$Prop["_Category"].Value = "Factory Layout"
+						}
+
+						# this state is for validation only - you must not get there; if you do then you miss the SkipVDSon1stSave.IAM template
+						If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Layout" -and $_mFdsKeys.Count -gt 1 -and $Document.FileSaveCounter -eq 0)
+						{
+							#$dsDiag.Trace("3DLayout not saved yet, but already synced")
+						}
+					}
+					#endregion FDU Support --------------------------------------------------------------------------
+
+					#retrieve 3D model properties (Inventor captures these also, but too late; we are currently before save event transfers model properties to drawing properties) 
 					# but don't do this, if the copy mode is active
 					if ($Prop["_CopyMode"].Value -eq $false) 
-					{
-						
+					{	
 						if (($Prop["_FileExt"].Value -eq "idw") -or ($Prop["_FileExt"].Value -eq "dwg" )) 
 						{
-							[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+							#[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
 							$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers #NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)#NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$Prop["Title"].Value = $_mInvHelpers.m_GetMainViewModelPropValue($Application, $_ModelFullFileName,"Title")
@@ -130,24 +192,11 @@ function InitializeWindow
 								$mCatName = GetCategories | Where {$_.Name -eq $UIString["CAT1"]} #"Engineering"
 								IF ($mCatName) { $Prop["_Category"].Value = $UIString["CAT1"]}
 							}
-							#set the path to the first drawings view's model path if GFN4S is false
-							#If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
-							#{	
-							#	If ($_ModelFullFileName) { 
-							#		$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
-							#		$_ModelFile = Get-ChildItem $_ModelFullFileName
-							#		$_ModelPath = $_ModelFile.DirectoryName	
-							#		$Prop["DocNumber"].Value = $_ModelName
-							#		#retrieve the matching folder selection of the model's path
-							#		$_localPath = $VaultConnection.WorkingFoldersManager.GetWorkingFolder($mappedRootPath)
-							#		$Prop["Folder"].Value = $_ModelPath.Replace($_localPath, "")
-							#	}
-							#}
 						}
-						#set path & filename for IPN
+
 						if ($Prop["_FileExt"].Value -eq "ipn") 
 						{
-							[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+							#[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
 							$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers #NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)#NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$Prop["Title"].Value = $_mInvHelpers.m_GetMainViewModelPropValue($Application, $_ModelFullFileName,"Title")
@@ -163,21 +212,8 @@ function InitializeWindow
 								}
 							} 
 							catch {
-								#$dsDiag.Trace("Set path, filename and properties for IPN: At least one custom property failed, most likely it did not exist and is not part of the cfg ")
+								$dsDiag.Trace("Set path, filename and properties for IPN: At least one custom property failed, most likely it did not exist and is not part of the cfg ")
 							}
-							#set the path to the first model's path if GFN4S is false
-							#If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
-							#{
-							#	If ($_ModelFullFileName) { 
-							#		$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
-							#		$_ModelFile = Get-ChildItem $_ModelFullFileName
-							#		$_ModelPath = $_ModelFile.DirectoryName	
-							#		$Prop["DocNumber"].Value = $_ModelName
-							#		#retrieve the matching folder selection of the model's path
-							#		$_localPath = $VaultConnection.WorkingFoldersManager.GetWorkingFolder($mappedRootPath)
-							#		$Prop["Folder"].Value = $_ModelPath.Replace($_localPath, "")
-							#	}
-							#}
 						}
 
 						if (($_ModelFullFileName -eq "") -and ($global:mGFN4Special -eq $false)) 
@@ -193,50 +229,8 @@ function InitializeWindow
 					{
 						$Prop["DocNumber"].Value = $Prop["DocNumber"].Value.TrimStart($UIString["CFG2"])
 					}
-					#if ($Prop["_CopyMode"].Value -eq $true) 
-					#{
-					#	if (($Prop["_FileExt"].Value -eq "idw") -or ($Prop["_FileExt"].Value -eq "dwg" )) 
-					#	{
-					#		$mCatName = $UIString["MSDCE_CAT00"] 
-					#		If ($global:mGFN4Special -eq $false) # The drawing get's saved to it#s first view's model location and name
-					#		{
-					#			# differ current doc = drawing -> drawing copy; current doc != drawing -> model incl. drawing copy
-					#			# in both cases the target folder for the drawing = folder of the model. User's have to turn on option "generate file numbers for drawings and presentations, in case folder and or number is a new selection
-					#			If ($Application.ActiveDocument.DocumentType -ne '12292') #we process a drawing of the current active model, get it's model path / name
-					#			{
-					#				# what about a drawing copy, that results from current doc = IAM and drawing is a copy of the new replace-copy model (this model is not active!)
-					#				# => compare current model and %temp% saved model; id identical we are processing a copy only, id different, we are processing a replace by copy
-					#				$_ModelFullFileName = $Application.ActiveDocument.FullFileName
-					#				$m_TempFile = $env:TEMP + "\VDSTempModelPath.txt"
-					#				$_lastCopyfileName = Get-Content $m_TempFile
-					#				if ($_ModelFullFileName -ne $_lastCopyfileName)
-					#				{
-					#					#$dsDiag.Trace("............... processing a 'replace incl. Drawing' copy drawing creation.............")
-					#					$_ModelFullFileName = $_lastCopyfileName
-					#				}
-					#				$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
-					#				$_ModelFile = Get-ChildItem $_ModelFullFileName
-					#				$_ModelPath = $_ModelFile.DirectoryName
-					#				$Prop["_FilePath"].Value = $_ModelPath
-					#				$Prop["DocNumber"].Value = $_ModelName
-					#			}
-					#			If ($Application.ActiveDocument.DocumentType -eq '12292') # = kDrawingDocument, get the main view's model path / name
-					#			{
-					#				[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
-					#				$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers
-					#				$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)
-					#				$_ModelName = [System.IO.Path]::GetFileNameWithoutExtension($_ModelFullFileName)
-					#				$_ModelFile = Get-ChildItem $_ModelFullFileName
-					#				$_ModelPath = $_ModelFile.DirectoryName
-					#				$Prop["_FilePath"].Value = $_ModelPath
-					#				$Prop["DocNumber"].Value = $_ModelName
-					#			}
-					#		}
-					#	}
-					#} #end of copymode = true 
-					#$dsDiag.Trace("CreateMode ended...<<")
-
-					#$dsDiag.Trace("... CreateMode Section finished <<")
+					
+					#} #end of copymode = true
 				}
 				$false # EditMode = True
 				{
@@ -253,7 +247,6 @@ function InitializeWindow
 		{
 			#rules applying for AutoCAD
 			#region Quickstart
-
 			switch ($Prop["_CreateMode"].Value) 
 			{
 				$true 
@@ -267,6 +260,18 @@ function InitializeWindow
 						$mCatName = GetCategories | Where {$_.Name -eq $UIString["CAT1"]} #"Engineering"
 						IF ($mCatName) { $Prop["_Category"].Value = $UIString["CAT1"]}
 					}
+
+					#region FDU Support ------------------
+					$_FdsUsrData = $Document.UserData #Items FACT_* are added by FDU
+					[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+					$_mAcadHelpers = New-Object QuickstartUtilityLibrary.AcadHelpers
+					$_FdsBlocksInDrawing = $_mAcadHelpers.mFdsDrawing($Application)
+					If($_FdsUsrData.Get_Item("FACT_FactoryDocument") -and $_FdsBlocksInDrawing )
+					{
+						#try to activate category "Factory Layout"
+						$Prop["_Category"].Value = "Factory Layout"
+					}
+					#endregion FDU Support ---------------
 				}
 			}
 
@@ -276,7 +281,7 @@ function InitializeWindow
 		{
 			#rules applying for other windows, e.g. FG, DA, TP and CH functional dialogs; SaveCopyAs dialog
 		}
-	}#end switch windows
+	} #end switch windows
 	$global:expandBreadCrumb = $true
 	#$dsDiag.Trace("... Initialize window end <<")
 }#end InitializeWindow
@@ -335,7 +340,7 @@ function GetNumSchms
 			#if ($numSchems.Count -gt 1)
 			{
 				#region Quickstart
-					#$numSchems = $numSchems | Sort-Object -Property IsDflt -Descending
+					$numSchems = $numSchems | Sort-Object -Property IsDflt -Descending
 					$_FilteredNumSchems = $numSchems | Where { $_.IsDflt -eq $true}
 					if ($Prop["_NumSchm"].Value) { $Prop["_NumSchm"].Value = $_FilteredNumSchems[0].Name} #note - functional dialogs don't have the property _NumSchm, therefore we conditionally set the value 
 					$dsWindow.FindName("NumSchms").IsEnabled = $false
@@ -372,7 +377,9 @@ function GetNumSchms
 
 function GetCategories
 {
-	return $vault.CategoryService.GetCategoriesByEntityClassId("FILE", $true)
+	$mAllCats =  $vault.CategoryService.GetCategoriesByEntityClassId("FILE", $true)
+	$mFDSFilteredCats = $mAllCats | Where { $_.Name -ne "Asset Library"}
+	return $mFDSFilteredCats
 }
 
 function OnPostCloseDialog
@@ -387,19 +394,6 @@ function OnPostCloseDialog
 				{
 					mWriteLastUsedFolder
 				}
-
-				#if ($Prop["_CopyMode"].Value -eq $true) 
-				#{
-				#	#register the model's copy to derive it's drawings copy name subsequently
-				#	if (($Prop["_CopyMode"].Value -eq $true) -and ($global:mGFN4Special -eq $false) -and ($Prop["_FileExt"].Value -ne "idw") -and ($Prop["_FileExt"].Value -ne "dwg")) 
-				#	{
-				#		#$dsDiag.Trace("copy of iam, ipt, ipn and no new number for drawings")
-				#		$m_TempFile = $env:TEMP + "\VDSTempModel.txt"
-				#		$Prop["DocNumber"].Value | Out-File $m_TempFile
-				#		$m_TempFile = $env:TEMP + "\VDSTempModelPath.txt"
-				#		$dsWindow.DataContext.PathAndFileNameHandler.FullFileName | Out-File $m_TempFile
-				#	}
-				#}
 
 				if ($Prop["_CreateMode"].Value -and !$Prop["Part Number"].Value) #we empty the part number on initialize: if there is no other function to provide part numbers we should apply the Inventor default
 				{
@@ -464,7 +458,7 @@ function mReadShortCuts {
 		$m_Vault = $VaultConnection.Vault
 		$m_AllFiles = @()
 		$m_FiltFiles = @()
-		$m_Path = $env:APPDATA + '\Autodesk\VaultCommon\Servers\'
+		$m_Path = $env:APPDATA + '\Autodesk\VaultCommon\Servers\Services_Security_1_6_2017\'
 		$m_AllFiles += Get-ChildItem -Path $m_Path -Filter 'Shortcuts.xml' -Recurse
 		$m_AllFiles | ForEach-Object {
 			if ($_.FullName -like "*"+$m_Server + "*" -and $_.FullName -like "*"+$m_Vault + "*") 
@@ -474,14 +468,14 @@ function mReadShortCuts {
 		}
 		$global:mScFile = $m_FiltFiles.SyncRoot[$m_FiltFiles.Count-1].FullName
 		if (Test-Path $global:mScFile) {
-			#$dsDiag.Trace(">> Start reading Shortcuts...")
+			$dsDiag.Trace(">> Start reading Shortcuts...")
 			$global:m_ScXML = New-Object XML 
 			$global:m_ScXML.Load($mScFile)
 			$m_ScAll = $m_ScXML.Shortcuts.Shortcut
 			#the shortcuts need to get filtered by type of document.folder and path information related to CAD workspace
 			$global:m_ScCAD = @{}
 			$mScNames = @()
-			#$dsDiag.Trace("... Filtering Shortcuts...")
+			$dsDiag.Trace("... Filtering Shortcuts...")
 			$m_ScAll | ForEach-Object { 
 				if (($_.NavigationContextType -eq "Connectivity.Explorer.Document.DocFolder") -and ($_.NavigationContext.URI -like "*"+$global:CAxRoot + "/*"))
 				{
@@ -496,7 +490,7 @@ function mReadShortCuts {
 				}
 			}
 		}
-		#$dsDiag.Trace("... returning Shortcuts: $mScNames")
+		$dsDiag.Trace("... returning Shortcuts: $mScNames")
 		return $mScNames
 	}
 }
@@ -571,7 +565,7 @@ function mAddShortCutByName([STRING] $mScName)
 		$mNewSc = $mShortCut.Clone() #.CloneNode($true)
 		#rename "Template" to new name
 		$mNewSc.Name = $mScName 
-		
+
 		#derive the path from current selection
 		$breadCrumb = $dsWindow.FindName("BreadCrumb")
 		$newURI = "vaultfolderpath:" + $global:CAx_Root
@@ -599,6 +593,7 @@ function mAddShortCutByName([STRING] $mScName)
 	}
 	catch 
 	{
+		#$dsDiag.Trace("..problem encountered addeding ShortCut <<")
 		return $false
 	}
 }
@@ -701,24 +696,6 @@ function mActivateBreadCrumbCmbs ($paths)
 	{		
 		[System.Windows.MessageBox]::Show($error, "Quickstart-Activate Folder Selection")
 	}
-}
-
-
-function mReadGFN4S 
-#	Reads the Inventor-Vault Addin Option: Generate File Numbers for Drawing / Presentations
-#	used by XAML Checkbox Style + script ($global:mGFN4S.Value) 
-{
-	$mVltOptionFile = $env:APPDATA + '\Autodesk\Inventor 2018 Vault Addin\ApplicationPreferences.xml'
-	if (Test-Path $mVltOptionFile) {
-		#$dsDiag.Trace(">> Start reading Vault Addin Options...")
-		$global:mAppXML = New-Object XML 
-		$mAppXML.Load($mVltOptionFile)
-		$mGeneral = $mAppXML.Categories.Category | Where-Object { $_.ID -eq "GeneralOptions" }
-		$_Option = $mGeneral.Property | Where-Object { $_.Name -eq "GFN4SpecialFiles" }
-		#$dsDiag.Trace("... finished reading Vault Addin Options returning: $_Option <<")
-		return $_Option.Value
-	}
-	#$dsDiag.Trace("...finished reading Vault AddIn Options with ERROR!")
 }
 
 #endregion
