@@ -98,6 +98,7 @@
             <Setter Property="Height" Value="Auto" />
             <Setter Property="Margin" Value="0,2,0,0" />
             <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="IsHitTestVisible" Value="False"/>
         </Style>
         <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
             <Setter Property="Margin" Value="0,0,0,0" />
@@ -223,6 +224,9 @@
                     <Setter Property="IsExpanded" Value="False" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding HasItems, ElementName=NumSchms}" Value="False">
+                    <Setter Property="IsExpanded" Value="True" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding NumSchmFieldsEmpty, ElementName=DSNumSchmsCtrl}" Value="True">
                     <Setter Property="IsExpanded" Value="True" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding EditMode}" Value="True">
@@ -355,7 +359,7 @@
                     <ColumnDefinition Width="40*"/>
                     <ColumnDefinition Width="169*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" />
+                <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" Visibility="{Binding Visibility, ElementName=FILENAME}" />
                 <TextBox x:Name="FILENAME" Grid.Column="1" 	Style="{StaticResource Required}"
                          Text="{Binding Prop[DocNumber].Value}" IsEnabled="{Binding CreateMode}" IsReadOnly="{Binding EditMode}"
             		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}"/>

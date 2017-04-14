@@ -11,6 +11,7 @@
     <DynamicProperty>DocNumber</DynamicProperty>
     <DynamicProperty>Title</DynamicProperty>
     <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Project Type</DynamicProperty>
     <DynamicProperty>Part Number</DynamicProperty>
     <DynamicProperty>Material</DynamicProperty>
     <DynamicProperty>Dimensions</DynamicProperty>
@@ -19,6 +20,12 @@
     <DynamicProperty>Scale</DynamicProperty>
     <DynamicProperty>Sheet</DynamicProperty>
     <DynamicProperty>Source File</DynamicProperty>
+  </DynamicPropertiesCategory>
+  <DynamicPropertiesCategory Category="Factory Layout">
+    <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
+    <DynamicProperty>Part Number</DynamicProperty>
+    <DynamicProperty>Project</DynamicProperty>
     <DynamicProperty>Project Type</DynamicProperty>
   </DynamicPropertiesCategory>
 </DynamicsProperties>

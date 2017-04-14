@@ -205,6 +205,9 @@
                 <DataTrigger Binding="{Binding HasItems, ElementName=NumSchms}" Value="False">
                     <Setter Property="IsExpanded" Value="True" />
                 </DataTrigger>
+                <DataTrigger Binding="{Binding NumSchmFieldsEmpty, ElementName=DSNumSchmsCtrl}" Value="True">
+                    <Setter Property="IsExpanded" Value="True" />
+                </DataTrigger>
                 <DataTrigger Binding="{Binding EditMode}" Value="True">
                     <Setter Property="IsExpanded" Value="False" />
                 </DataTrigger>
@@ -337,7 +340,7 @@
                     <ColumnDefinition Width="40*"/>
                     <ColumnDefinition Width="169*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" />
+                <Label x:Name="lblFileName" Content="{Binding UIString[LBL6], FallbackValue=File Name}" Visibility="{Binding Visibility, ElementName=FILENAME}" />
                 <TextBox x:Name="FILENAME" Grid.Column="1" 	Style="{StaticResource Required}"
                          Text="{WPF:ValidatedBinding Prop[DocNumber].Value}" IsEnabled="{Binding CreateMode}" IsReadOnly="{Binding EditMode}"
             		Visibility="{Binding NumSchmFieldsEmpty, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=DSNumSchmsCtrl}"/>

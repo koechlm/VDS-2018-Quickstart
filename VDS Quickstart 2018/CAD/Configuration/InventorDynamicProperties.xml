@@ -103,11 +103,11 @@
     <DynamicProperty>Description</DynamicProperty>
   </DynamicPropertiesCategory>
   <DynamicPropertiesCategory Category="Factory Layout">
-    <DynamicProperty>Description</DynamicProperty>
-    <DynamicProperty>Project Number</DynamicProperty>
-    <DynamicProperty>Project Type</DynamicProperty>
     <DynamicProperty>Title</DynamicProperty>
+    <DynamicProperty>Description</DynamicProperty>
     <DynamicProperty>Part Number</DynamicProperty>
     <DynamicProperty>Project</DynamicProperty>
+    <DynamicProperty>Project Type</DynamicProperty>
+    <DynamicProperty Hidden="True">Project Number</DynamicProperty>
   </DynamicPropertiesCategory>
 </DynamicsProperties>

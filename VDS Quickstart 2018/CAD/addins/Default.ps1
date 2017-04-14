@@ -339,13 +339,18 @@ function GetNumSchms
             if ($numSchems.Count -gt 1 -and !($Prop["_SaveCopyAsMode"].Value -eq $true)) #second condition added by Quickstart
 			#if ($numSchems.Count -gt 1)
 			{
-				#region Quickstart
-					$numSchems = $numSchems | Sort-Object -Property IsDflt -Descending
-					$_FilteredNumSchems = $numSchems | Where { $_.IsDflt -eq $true}
-					if ($Prop["_NumSchm"].Value) { $Prop["_NumSchm"].Value = $_FilteredNumSchems[0].Name} #note - functional dialogs don't have the property _NumSchm, therefore we conditionally set the value 
-					$dsWindow.FindName("NumSchms").IsEnabled = $false
+				#region Quickstart FDU Support----------------
+					$_FilteredNumSchems = @()
+					$_temp = $numSchems | Where { $_.IsDflt -eq $true}
+					$_FilteredNumSchems += ($_temp)
+					if ($Prop["_NumSchm"].Value) { $Prop["_NumSchm"].Value = $_FilteredNumSchems[0].Name} #note - functional dialogs don't have the property _NumSchm, therefore we conditionally set the value
+					$dsWindow.FindName("NumSchms").IsEnabled = $true
+					$noneNumSchm = New-Object 'Autodesk.Connectivity.WebServices.NumSchm'
+					$noneNumSchm.Name = $UIString["LBL77"]
+					$_FilteredNumSchems += $noneNumSchm
 					return $_FilteredNumSchems
-				#end Quickstart
+				#endregion Quickstart FDU Support ------------
+
 			}
 			if ($numSchems.Count -eq 1 -and !($Prop["_SaveCopyAsMode"].Value -eq $true)) 
 			{ 
