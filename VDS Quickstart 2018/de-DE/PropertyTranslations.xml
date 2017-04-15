@@ -11,11 +11,11 @@
   <PropertyTranslation Name="CATEGORY NAME">Kategoriename</PropertyTranslation>
   <PropertyTranslation Name="FILE NAME">Dateiname</PropertyTranslation>
   <PropertyTranslation Name="DUE DATE">Fälligkeitsdatum</PropertyTranslation>
-  <PropertyTranslation Name="TITLE_ITEM_CO">Titel (Element, Änderungsauftrag)</PropertyTranslation>
-  <PropertyTranslation Name="DESCRIPTION_ITEM_CO">Beschreibung (Element, Änderungsauftrag)</PropertyTranslation>
-  <PropertyTranslation Name="CREATE DATE">Erstellt am</PropertyTranslation>
+  <PropertyTranslation Name="TITLE_ITEM_CO">Titel (Artikel, F)</PropertyTranslation>
+  <PropertyTranslation Name="DESCRIPTION_ITEM_CO">Beschreibung (Artikel, F)</PropertyTranslation>
+  <PropertyTranslation Name="CREATE DATE">Erstellungsdatum</PropertyTranslation>
   <PropertyTranslation Name="CREATED BY">Erstellt von</PropertyTranslation>
-  <PropertyTranslation Name="DATE VERSION CREATED">Version erstellt</PropertyTranslation>
+  <PropertyTranslation Name="DATE VERSION CREATED">Version erstellt </PropertyTranslation>
 
   <!--Quickstart 2018-->
   <PropertyTranslation Name="SUBJECT">Thema</PropertyTranslation>

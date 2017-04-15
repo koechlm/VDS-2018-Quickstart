@@ -49,18 +49,11 @@ function Validate
     
 }
 
-# sample validation function for the Title property
-# if the Title is empty the validation will fail
-#function ValidateFileTitle
-{
-	#if($Prop["_XLTN_TITLE"].Value) { return $true}
-	#return $false;
-}
-
+# sample validation function for the FileName property
 # if the File Name is empty the validation will fail
 function ValidateFileName
 {
-	if($dsWindow.FindName("FILENAME").Text -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
+	if($Prop["_FileName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{
 		return $true;
 	}
@@ -69,7 +62,7 @@ function ValidateFileName
 
 function ValidateFolderName
 {
-	if($dsWindow.FindName("FOLDERNAME").Text -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
+	if($Prop["_FolderName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{
 		return $true;
 	}
@@ -78,7 +71,7 @@ function ValidateFolderName
 
 function ValidateCustomObjectName
 {
-	if($dsWindow.FindName("CUSTOMOBJECTNAME").Text -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
+	if($Prop["_CustomObjectName"].Value -or !$dsWindow.FindName("DSNumSchmsCtrl").NumSchmFieldsEmpty)
 	{
 		return $true;
 	}

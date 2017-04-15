@@ -473,14 +473,14 @@ function mReadShortCuts {
 		}
 		$global:mScFile = $m_FiltFiles.SyncRoot[$m_FiltFiles.Count-1].FullName
 		if (Test-Path $global:mScFile) {
-			$dsDiag.Trace(">> Start reading Shortcuts...")
+			#$dsDiag.Trace(">> Start reading Shortcuts...")
 			$global:m_ScXML = New-Object XML 
 			$global:m_ScXML.Load($mScFile)
 			$m_ScAll = $m_ScXML.Shortcuts.Shortcut
 			#the shortcuts need to get filtered by type of document.folder and path information related to CAD workspace
 			$global:m_ScCAD = @{}
 			$mScNames = @()
-			$dsDiag.Trace("... Filtering Shortcuts...")
+			#$dsDiag.Trace("... Filtering Shortcuts...")
 			$m_ScAll | ForEach-Object { 
 				if (($_.NavigationContextType -eq "Connectivity.Explorer.Document.DocFolder") -and ($_.NavigationContext.URI -like "*"+$global:CAxRoot + "/*"))
 				{
