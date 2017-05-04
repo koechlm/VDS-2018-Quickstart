@@ -141,7 +141,9 @@ function InitializeWindow
 						# for new assets we suggest to use the source file folder name, nothing else
 						If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Asset")
 						{
-							$Prop["_Category"].Value = "Factory Asset"
+							# only the MSDCE FDS configuration template provides a category for assets, check for this otherwise continue with the selection done before
+							$mCatName = GetCategories | Where {$_.Name -eq "Factory Asset"}
+							IF ($mCatName) { $Prop["_Category"].Value = "Factory Asset"}
 						}
 						# skip for publishing the 3D temporary file save event for VDS
 						If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Asset" -and $Application.SilentOperation -eq $true)
@@ -159,8 +161,9 @@ function InitializeWindow
 						If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Layout" -and $_mFdsKeys.Count -eq 1)
 						{
 							#$dsDiag.Trace("3DLayout, not synced")
-							#try to activate category "Factory Layout"
-							$Prop["_Category"].Value = "Factory Layout"
+							# only the MSDCE FDS configuration template provides a category for layouts, check for this otherwise continue with the selection done before
+							$mCatName = GetCategories | Where {$_.Name -eq "Factory Layout"}
+							IF ($mCatName) { $Prop["_Category"].Value = "Factory Layout"}
 						}
 
 						# this state is for validation only - you must not get there; if you do then you miss the SkipVDSon1stSave.IAM template
@@ -177,7 +180,6 @@ function InitializeWindow
 					{	
 						if (($Prop["_FileExt"].Value -eq "idw") -or ($Prop["_FileExt"].Value -eq "dwg" )) 
 						{
-							#[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
 							$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers #NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)#NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$Prop["Title"].Value = $_mInvHelpers.m_GetMainViewModelPropValue($Application, $_ModelFullFileName,"Title")
@@ -196,7 +198,6 @@ function InitializeWindow
 
 						if ($Prop["_FileExt"].Value -eq "ipn") 
 						{
-							#[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
 							$_mInvHelpers = New-Object QuickstartUtilityLibrary.InvHelpers #NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$_ModelFullFileName = $_mInvHelpers.m_GetMainViewModelPath($Application)#NEW 2018 hand over the parent inventor application, to ensure the correct instance
 							$Prop["Title"].Value = $_mInvHelpers.m_GetMainViewModelPropValue($Application, $_ModelFullFileName,"Title")
@@ -350,7 +351,6 @@ function GetNumSchms
 					$_FilteredNumSchems += $noneNumSchm
 					return $_FilteredNumSchems
 				#endregion Quickstart FDU Support ------------
-
 			}
 			if ($numSchems.Count -eq 1 -and !($Prop["_SaveCopyAsMode"].Value -eq $true)) 
 			{ 
@@ -482,7 +482,7 @@ function mReadShortCuts {
 			$mScNames = @()
 			#$dsDiag.Trace("... Filtering Shortcuts...")
 			$m_ScAll | ForEach-Object { 
-				if (($_.NavigationContextType -eq "Connectivity.Explorer.Document.DocFolder") -and ($_.NavigationContext.URI -like "*"+$global:CAxRoot + "/*"))
+				if (($_.NavigationContextType -eq "Connectivity.Explorer.Document.DocFolder") -and ($_.NavigationContext.URI -like "*"+$global:CAx_Root + "/*"))
 				{
 					try
 					{
@@ -495,7 +495,7 @@ function mReadShortCuts {
 				}
 			}
 		}
-		$dsDiag.Trace("... returning Shortcuts: $mScNames")
+		#$dsDiag.Trace("... returning Shortcuts: $mScNames")
 		return $mScNames
 	}
 }
@@ -519,6 +519,7 @@ function mScClick {
 		}
 		if ($m_DesignPathNames.Count -eq 1) { $m_DesignPathNames += "."}
 		mActivateBreadCrumbCmbs $m_DesignPathNames
+		$global:expandBreadCrumb = $true
 	}
 	catch
 	{
@@ -565,6 +566,13 @@ function mAddShortCutByName([STRING] $mScName)
 	{
 		#$dsDiag.Trace(">> Continue to add ShortCut, creating new from template...")	
 		#read from template
+		$m_File = $env:TEMP + "\Folder2018.xml"
+		if (Test-Path $m_File)
+		{
+			#$dsDiag.Trace(">>-- Started to read Folder2017.xml...")
+			$global:m_XML = New-Object XML
+			$global:m_XML.Load($m_File)
+		}
 		$mShortCut = $global:m_XML.Folder.Shortcut | where { $_.Name -eq "Template"}
 		#clone the template completely and update name attribute and navigationcontext element
 		$mNewSc = $mShortCut.Clone() #.CloneNode($true)
@@ -598,7 +606,7 @@ function mAddShortCutByName([STRING] $mScName)
 	}
 	catch 
 	{
-		#$dsDiag.Trace("..problem encountered addeding ShortCut <<")
+		$dsDiag.Trace("..problem encountered addeding ShortCut <<")
 		return $false
 	}
 }
