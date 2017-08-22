@@ -74,7 +74,7 @@ function InitializeWindow
 		{
 			#region Quickstart
 			#	there are some custom functions to enhance functionality:
-			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+			[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault.Custom\addinVault\QuickstartUtilityLibrary.dll')
 			
 			#	initialize the context for Drawings or presentation files as these have Vault Option settings
 			$global:mGFN4Special = $Prop["_GenerateFileNumber4SpecialFiles"].Value
@@ -268,7 +268,7 @@ function InitializeWindow
 
 					#region FDU Support ------------------
 					$_FdsUsrData = $Document.UserData #Items FACT_* are added by FDU
-					[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault\addinVault\QuickstartUtilityLibrary.dll')
+					[System.Reflection.Assembly]::LoadFrom($Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard" + '\Vault.Custom\addinVault\QuickstartUtilityLibrary.dll')
 					$_mAcadHelpers = New-Object QuickstartUtilityLibrary.AcadHelpers
 					$_FdsBlocksInDrawing = $_mAcadHelpers.mFdsDrawing($Application)
 					If($_FdsUsrData.Get_Item("FACT_FactoryDocument") -and $_FdsBlocksInDrawing )
@@ -297,7 +297,7 @@ function AddinLoaded
 	#region Quickstart
 		$m_File = $env:TEMP + "\Folder2018.xml"
 		if (!(Test-Path $m_File)){
-			$source = $Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard\Vault\Folder2018.xml"
+			$source = $Env:ProgramData + "\Autodesk\Vault 2018\Extensions\DataStandard\Vault.Custom\Folder2018.xml"
 			Copy-Item $source $env:TEMP\Folder2018.xml
 		}
 	#endregion quickstart
