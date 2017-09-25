@@ -84,13 +84,14 @@
     <None Include="CAD.Custom\Configuration\AutoCAD-Mechanical\AutoCAD.cfg" />
     <None Include="CAD.Custom\Configuration\AutoCAD.cfg" />
     <None Include="CAD.Custom\Configuration\Inventor.cfg" />
+    <None Include="Inventor.Addins.DataStandard\dataStandard.InvAddIn.dll.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Vault.Custom\addinVault\AssociatedFiles.ps1" />
     <None Include="Vault.Custom\addinVault\Default.ps1" />
-    <None Include="Vault.Custom\addinVault\Default_QS-Extensions.ps1" />
+    <None Include="Vault.Custom\addinVault\QuickstartExtension2018.0.2.ps1" />
     <None Include="Vault.Custom\addinVault\FileBOM.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\CreateCustomObject.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\CreateFile.ps1" />
@@ -105,6 +106,7 @@
     <None Include="Vault.Custom\addinVault\Menus\showCustomHelp.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ShowLog.ps1" />
     <None Include="Vault.Custom\addinVault\ReserveFileNumber.ps1" />
+    <None Include="Vault.Custom\VDSQuickStartVersion.config" />
     <None Include="VDS 2018 Help EN.mmap" />
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Vault.Custom\addinVault\QuickstartUtilityLibrary.dll" />
+    <Resource Include="Vault.Custom\ConfigurationVersionHistory.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

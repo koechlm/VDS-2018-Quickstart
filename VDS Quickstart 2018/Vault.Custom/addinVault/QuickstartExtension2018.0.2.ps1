@@ -10,7 +10,7 @@
 #=============================================================================#
 #endregion
 
-# Version Info - VDS Quickstart 2018 Update 2.
+# Version Info - VDS Quickstart 2018.0.2
 
 #retrieve property value given by displayname from folder (ID)
 function mGetFolderPropValue ([Int64] $mFldID, [STRING] $mDispName)
