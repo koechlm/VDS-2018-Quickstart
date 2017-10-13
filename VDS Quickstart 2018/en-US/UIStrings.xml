@@ -138,9 +138,9 @@
   <!--Inventor custom iProperties Displaynames for dynamic properties-->
   <!--use to change display name for localization or user friendly naming-->
   <!--<UIString ID="aim_description1">Description</UIString>-->
-  
+
   <!--Inventor custom iProperties Displaynames for dynamic properties-->
-  
+
   <!--Vault Categories-->
   <UIString ID="CAT1">Engineering</UIString>
   <UIString ID="CAT2">Office</UIString>
@@ -150,88 +150,92 @@
   <UIString ID="CAT6">Project</UIString>
 
   <UIString ID="TLT1">Local path</UIString>
-  
+
   <!--Quickstart Multilang Strings Start-->
-  
-    <!--Quickstart Category Names (additional ones not in default)-->
-      <UIString ID="MSDCE_CAT00">Drawing Inventor</UIString>
-      <UIString ID="MSDCE_CAT01">Drawing AutoCAD</UIString>
-      <UIString ID="MSDCE_CAT02">3D component</UIString>
-    <!--<UIString ID="MSDCE_CAT03"></UIString>-->
-      <UIString ID="MSDCE_CAT04">Electrical Drawing</UIString>
-      <UIString ID="MSDCE_CAT05">Electrical Project</UIString>
-      <UIString ID="MSDCE_CAT06">Sheet Set</UIString>
-      <UIString ID="MSDCE_CAT07">Sheet Set Drawing</UIString>
-      <!--<UIString ID="MSDCE_CAT08"></UIString>
+
+  <!--Quickstart Category Names (additional ones not in default)-->
+  <UIString ID="MSDCE_CAT00">Drawing Inventor</UIString>
+  <UIString ID="MSDCE_CAT01">Drawing AutoCAD</UIString>
+  <UIString ID="MSDCE_CAT02">3D component</UIString>
+  <!--<UIString ID="MSDCE_CAT03"></UIString>-->
+  <UIString ID="MSDCE_CAT04">Electrical Drawing</UIString>
+  <UIString ID="MSDCE_CAT05">Electrical Project</UIString>
+  <UIString ID="MSDCE_CAT06">Sheet Set</UIString>
+  <UIString ID="MSDCE_CAT07">Sheet Set Drawing</UIString>
+  <!--<UIString ID="MSDCE_CAT08"></UIString>
       <UIString ID="MSDCE_CAT09"></UIString>
       <UIString ID="MSDCE_CAT10"></UIString>
       <UIString ID="MSDCE_CAT11"></UIString>-->
-    <!--Quickstart Category Names-->
+  <!--Quickstart Category Names-->
 
-    <!--Quickstart CAD-BOM-->
-      <UIString ID="MSDCE_CAD-BOM01">Note - Assembly contains virtual components! These are filtered in CAD-BOM views. Create Item BOM to leverage virtual components' meta data.</UIString>
-      <UIString ID="MSDCE_CAD-BOM02">Note - Selected component has no CAD-BOM data available.</UIString>
-    <!--Quickstart CAD-BOM end-->
-  
-    <!--Quickstart Inventor Dialog-->
-      <UIString ID="MSDCE_MSG00">Missing Model View! Your system is set to save IPN/IDW/DWG depending on model's name and location. Either add a model or change the Vault option to generate numbers for IPN/IDW/DWG.</UIString>
-    <!--Quickstart Inventor Dialog end-->
-  
-    <!--Quickstart Custom Object Names-->
-      <UIString ID="MSDCE_CO01">Organisation</UIString>
-      <UIString ID="MSDCE_CO02">Person</UIString>
-      <UIString ID="MSDCE_CO03">Task</UIString>
-      <UIString ID="MSDCE_CO04">Transmittal</UIString>
-      <!--Quickstart Custom Object Context Menu Items-->
-      <UIString ID="MSDCE_MNU01">New Task...</UIString>
-      <UIString ID="MSDCE_MNU02">Create New Task</UIString>
-      <UIString ID="MSDCE_MNU04">Edit Task...</UIString>
-      <UIString ID="MSDCE_MNU05">Edit Existing Task</UIString>
-      <!--Organisation-->
-      <UIString ID="MSDCE_MNU07">New Organisation...</UIString>
-      <UIString ID="MSDCE_MNU08">Create New Organisation</UIString>
-      <UIString ID="MSDCE_MNU09">Edit Organisation...</UIString>
-      <UIString ID="MSDCE_MNU10">Edit Existing Organisation</UIString>
-      <!--Person-->
-      <UIString ID="MSDCE_MNU11">New Person...</UIString>
-      <UIString ID="MSDCE_MNU12">Create New Person</UIString>
-      <UIString ID="MSDCE_MNU13">Edit Person...</UIString>
-      <UIString ID="MSDCE_MNU14">Edit Existing Person</UIString>
-      <!--Transmittal-->
-      <UIString ID="MSDCE_MNU15">New Transmittal...</UIString>
-      <UIString ID="MSDCE_MNU16">Create New Transmittal</UIString>
-      <UIString ID="MSDCE_MNU17">Edit Transmittal...</UIString>
-      <UIString ID="MSDCE_MNU18">Edit Existing Transmittal</UIString>
-    
+  <!--Quickstart CAD-BOM-->
+  <UIString ID="MSDCE_CAD-BOM01">Note - Assembly contains virtual components! These are filtered in CAD-BOM views. Create Item BOM to leverage virtual components' meta data.</UIString>
+  <UIString ID="MSDCE_CAD-BOM02">Note - Selected component has no CAD-BOM data available.</UIString>
+  <!--Quickstart CAD-BOM end-->
+
+  <!--Quickstart Inventor Dialog-->
+  <UIString ID="MSDCE_MSG00">Missing Model View! Your system is set to save IPN/IDW/DWG depending on model's name and location. Either add a model or change the Vault option to generate numbers for IPN/IDW/DWG.</UIString>
+  <!--Quickstart Inventor Dialog end-->
+
+  <!--Quickstart Custom Object Names-->
+  <UIString ID="MSDCE_CO01">Organisation</UIString>
+  <UIString ID="MSDCE_CO02">Person</UIString>
+  <UIString ID="MSDCE_CO03">Task</UIString>
+  <UIString ID="MSDCE_CO04">Transmittal</UIString>
+  <!--Quickstart Custom Object Context Menu Items-->
+  <UIString ID="MSDCE_MNU01">New Task...</UIString>
+  <UIString ID="MSDCE_MNU02">Create New Task</UIString>
+  <UIString ID="MSDCE_MNU04">Edit Task...</UIString>
+  <UIString ID="MSDCE_MNU05">Edit Existing Task</UIString>
+  <!--Organisation-->
+  <UIString ID="MSDCE_MNU07">New Organisation...</UIString>
+  <UIString ID="MSDCE_MNU08">Create New Organisation</UIString>
+  <UIString ID="MSDCE_MNU09">Edit Organisation...</UIString>
+  <UIString ID="MSDCE_MNU10">Edit Existing Organisation</UIString>
+  <!--Person-->
+  <UIString ID="MSDCE_MNU11">New Person...</UIString>
+  <UIString ID="MSDCE_MNU12">Create New Person</UIString>
+  <UIString ID="MSDCE_MNU13">Edit Person...</UIString>
+  <UIString ID="MSDCE_MNU14">Edit Existing Person</UIString>
+  <!--Transmittal-->
+  <UIString ID="MSDCE_MNU15">New Transmittal...</UIString>
+  <UIString ID="MSDCE_MNU16">Create New Transmittal</UIString>
+  <UIString ID="MSDCE_MNU17">Edit Transmittal...</UIString>
+  <UIString ID="MSDCE_MNU18">Edit Existing Transmittal</UIString>
+
   <!--Quickstart Help And Documentation start-->
-      <UIString ID="MSDCE_BTN1">Help</UIString>
-      <UIString ID="MSDCE_MNU19">Vault Quickstart Documentation</UIString>
-      <UIString ID="MSDCE_MSG02">Help page not found!</UIString>
+  <UIString ID="MSDCE_BTN1">Help</UIString>
+  <UIString ID="MSDCE_MNU19">Vault Quickstart Documentation</UIString>
+  <UIString ID="MSDCE_MSG02">Help page not found!</UIString>
   <!--Quickstart Help And Documentation end-->
 
   <!--Quickstart ShortCut Pane-->
-      <UIString ID="MSDCE_LBL88">Shortcuts</UIString>
-      <UIString ID="MSDCE_BTN2">Activate</UIString>
-      <UIString ID="MSDCE_BTN3">Delete</UIString>
-      <UIString ID="MSDCE_TT20">Create Shortcut</UIString>
-      <UIString ID="MSDCE_TT23">Rightclick to activate / delete</UIString>
+  <UIString ID="MSDCE_LBL88">Shortcuts</UIString>
+  <UIString ID="MSDCE_BTN2">Activate</UIString>
+  <UIString ID="MSDCE_BTN3">Delete</UIString>
+  <UIString ID="MSDCE_TT20">Create Shortcut</UIString>
+  <UIString ID="MSDCE_TT23">Rightclick to activate / delete</UIString>
   <!--Quickstart ShortCut Pane end-->
+
+  <!--Quickstart Multitab Dialogs-->
+  <UIString ID="MSDCE_MultiTab_01">Properties</UIString>
+  <!--Quickstart Multitab Dialogs end-->
   
   <!--Quickstart Multilang Strings End-->
 
   <!--Reserve Numbers Snippet-->
-    <UIString ID="ADSK-RSRVNUMBERS_MNU20">Reserve Numbers...</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_LBL105">Range to Reserve</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_LBL106">Generated Numbers</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_MSG03">How to use this tool?</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_MSG04">Select Numbering Scheme.</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_MSG05">Set the quantity of numbers required.</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_MSG06">Execute.</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_MSG07">All numbers generated are pushed to windows clipboard automatically. Grab from there with CTRL-V to insert.</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_TT32">Insert Result at target location using CTRL-V.</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_TT33">Generates Numbers and adds these to ClipBoard.</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_BTN7">Run</UIString>
-    <UIString ID="ADSK-RSRVNUMBERS_BTN8">Close</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_MNU20">Reserve Numbers...</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_LBL105">Range to Reserve</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_LBL106">Generated Numbers</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_MSG03">How to use this tool?</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_MSG04">Select Numbering Scheme.</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_MSG05">Set the quantity of numbers required.</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_MSG06">Execute.</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_MSG07">All numbers generated are pushed to windows clipboard automatically. Grab from there with CTRL-V to insert.</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_TT32">Insert Result at target location using CTRL-V.</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_TT33">Generates Numbers and adds these to ClipBoard.</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_BTN7">Run</UIString>
+  <UIString ID="ADSK-RSRVNUMBERS_BTN8">Close</UIString>
   <!--Reserve Numbers Snippet-->
 
 </UIStrings>

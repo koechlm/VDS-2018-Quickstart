@@ -196,7 +196,9 @@
     <WPF:MainWindow.InputBindings>
         <KeyBinding Key="F1" Command="{Binding PsCmd[mHelp(500)]}"/>
     </WPF:MainWindow.InputBindings>
-    <Grid x:Name="grdMain" Margin="5">
+    <TabControl Background="#FFE5E5E5">
+        <TabItem  Name="tabFileProperties" Header="{Binding UIString[MSDCE_MultiTab_01], FallbackValue=Properties}">
+            <Grid x:Name="grdMain" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
@@ -364,4 +366,6 @@
                     Command="{Binding PsCmd[mHelp(500)]}" Height="24" ToolTip="F1" Margin="0" Width="80" />
         </Grid>
     </Grid>
+        </TabItem>
+    </TabControl>
 </WPF:MainWindow>

@@ -13,5 +13,17 @@
       </Enhancements>
     </ConfigHistoryInfo>
   </ConfigInfo>
-  
+  <ConfigInfo Name="VDS Quickstart MSDCE" Version="2018.1.1">
+    <ConfigHistoryInfo>
+      <NewFeatures>
+        <!---->
+      </NewFeatures>
+      <Fixes>
+        <!---->
+      </Fixes>
+      <Enhancements>
+        <!--Vault Dialogs add tab control to allow copy'n paste integration of additional modules, e.g. item tab, terms catalog, folder links...-->
+      </Enhancements>
+    </ConfigHistoryInfo>
+  </ConfigInfo>
 </Configuration>
