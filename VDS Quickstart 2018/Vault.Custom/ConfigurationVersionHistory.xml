@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
-  <ConfigInfo Name="VDS Quickstart MSDCE" Version="2018.1.0"></ConfigInfo>
-  <ConfigHistoryInfo>
-    <NewFeatures>
-      <!--Added workaround AKN to support Frame Member Change command-->
-    </NewFeatures>
-    <Fixes>
-      <!--Renamed Default_QS-Extensions.ps1 to QuickstartExtension2018.0.2.ps1 to reflect versioning and QS as master source-->
-      
-    </Fixes>
-    <Enhancements>
-      
-    </Enhancements>
-  </ConfigHistoryInfo>
+  <ConfigInfo Name="VDS Quickstart MSDCE" Version="2018.1.0">
+    <ConfigHistoryInfo>
+      <NewFeatures>
+        <!--Added workaround AKN to support Frame Member Change command-->
+      </NewFeatures>
+      <Fixes>
+        <!--Renamed Default_QS-Extensions.ps1 to QuickstartExtension2018.0.2.ps1 to reflect versioning and QS as master source-->
+      </Fixes>
+      <Enhancements>
+        <!--Introduced CAD.Custom and Vault.Custom Subfolder Structure to split default and custom configuration files-->
+      </Enhancements>
+    </ConfigHistoryInfo>
+  </ConfigInfo>
+  
 </Configuration>
