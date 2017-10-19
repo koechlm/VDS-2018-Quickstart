@@ -10,7 +10,7 @@
 #=============================================================================#
 #endregion
 
-# Version Info - VDS Quickstart 2018.0.2
+# Version Info - VDS Quickstart Extension 2018.0.3
 
 #retrieve property value given by displayname from folder (ID)
 function mGetFolderPropValue ([Int64] $mFldID, [STRING] $mDispName)
@@ -111,7 +111,7 @@ function mGetFolderNumber($_FileNumber, $_nChar)
 		$_Folders += $_Folder
 	}
 
-	$_ItemFilePath = "$/Item-Files/"
+	$_ItemFilePath = "$/xDMS/"
 	for ($_i = 0; $_i -lt $_Folders.Count; $_i++) {
 		$_ItemFilePath = $_ItemFilePath + $_Folders[$_i] + "/"
 	}

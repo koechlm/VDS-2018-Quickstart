@@ -91,7 +91,7 @@
     </None>
     <None Include="Vault.Custom\addinVault\AssociatedFiles.ps1" />
     <None Include="Vault.Custom\addinVault\Default.ps1" />
-    <None Include="Vault.Custom\addinVault\QuickstartExtension2018.0.2.ps1" />
+    <None Include="Vault.Custom\addinVault\QuickstartExtension.ps1" />
     <None Include="Vault.Custom\addinVault\FileBOM.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\CreateCustomObject.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\CreateFile.ps1" />

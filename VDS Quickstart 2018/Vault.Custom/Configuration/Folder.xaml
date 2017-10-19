@@ -166,7 +166,7 @@
     </WPF:MainWindow.InputBindings>
     <TabControl Background="#FFE5E5E5">
         <TabItem Name="tabFolderProperties" Header="{Binding UIString[MSDCE_MultiTab_01], FallbackValue=Properties}">
-            <Grid x:Name="grdMain" Height="282" Width="645">
+            <Grid x:Name="grdMain" Height="282" Width="645" Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

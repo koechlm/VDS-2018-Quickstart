@@ -293,7 +293,7 @@
         </Grid>
         <TabControl x:Name="tabCtrlMain" MinHeight="80" Grid.Column="1" Grid.Row="2"
         	Grid.ColumnSpan="2" Margin="6,5,0,0" MaxWidth="680">
-            <TabItem x:Name="tabFileProp" Header="{Binding UIString[LBL63], FallbackValue=Category Properties}">
+            <TabItem x:Name="tabProperties" Header="{Binding UIString[LBL63], FallbackValue=Category Properties}">
                 <Grid x:Name="DSDynCatPropGrid"
         			ToolTip="{Binding UIString[LBL63], FallbackValue=Category Properties}">
                     <DataGrid x:Name="DSDynamicCategoryProperties"
