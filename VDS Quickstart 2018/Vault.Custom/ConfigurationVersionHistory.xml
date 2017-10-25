@@ -16,7 +16,7 @@
   <ConfigInfo Name="VDS Quickstart MSDCE" Version="2018.1.1">
     <ConfigHistoryInfo>
       <NewFeatures>
-        <!---->
+        <!--Updated QuickstartExtensions.ps1 2018.0.4 shares function to read UIStrings and PropertyTranslations for menu command scripts, e.g. create folder etc..-->
       </NewFeatures>
       <Fixes>
         <!--Custom Workspace Tabs for Organisation, Person, Transmittal added (removed since Quickstart 2017)-->
