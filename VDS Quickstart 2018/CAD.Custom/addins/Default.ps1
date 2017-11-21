@@ -135,6 +135,7 @@ function InitializeWindow
 							{
 								$paths = @("Factory Asset Library Source")
 								mActivateBreadCrumbCmbs $paths
+								$dsWindow.FindName("NumSchms").SelectedIndex = 1
 							}
 						})
 				
