@@ -79,8 +79,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="CAD.Custom\addins\breadCrumb.ps1" />
-    <None Include="CAD.Custom\addins\Default.ps1" />
+    <None Include="CAD.Custom\addins\ADSK.QS.breadCrumb.ps1" />
+    <None Include="CAD.Custom\addins\ADSK.QS.Default.ps1" />
     <None Include="CAD.Custom\Configuration\AutoCAD-Mechanical\AutoCAD.cfg" />
     <None Include="CAD.Custom\Configuration\AutoCAD.cfg" />
     <None Include="CAD.Custom\Configuration\Inventor.cfg" />
@@ -90,9 +90,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Vault.Custom\addinVault\AssociatedFiles.ps1" />
-    <None Include="Vault.Custom\addinVault\Default.ps1" />
+    <None Include="Vault.Custom\addinVault\ADSK.QS.Default.ps1" />
     <None Include="Vault.Custom\addinVault\QuickstartExtension.ps1" />
-    <None Include="Vault.Custom\addinVault\FileBOM.ps1" />
+    <None Include="Vault.Custom\addinVault\ADSK.QS.FileBOM.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\CreateCustomObject.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\CreateFile.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\CreateFolder.ps1" />
