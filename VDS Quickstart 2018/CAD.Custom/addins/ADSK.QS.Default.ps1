@@ -170,10 +170,14 @@ function InitializeWindow
 								IF ($mCatName) { $Prop["_Category"].Value = "Factory Layout"}
 							}
 
-							# this state is for validation only - you must not get there; if you do then you miss the SkipVDSon1stSave.IAM template
+							# FDU 2018.22.0.2 allows to skip dynamically, instead of skipping in general by the SkipVDSon1stSave.IAM template
 							If($_mFdsKeys.Get_Item("FdsType") -eq "FDS-Layout" -and $_mFdsKeys.Count -gt 1 -and $Document.FileSaveCounter -eq 0)
 							{
 								#$dsDiag.Trace("3DLayout not saved yet, but already synced")
+								$dsWindow.add_Loaded({
+									$dsWindow.CancelWindowCommand.Execute($this)
+									#$dsDiag.Trace("FDU-VDS EventHandler: Skip Dialog executed")	
+								})
 							}
 						}
 					}
