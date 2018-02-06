@@ -334,8 +334,7 @@
                                 </DataGridTextColumn.HeaderTemplate>
                             </DataGridTextColumn>
                             <DataGridTemplateColumn Header="Property Value"
-            					CellStyle="{StaticResource DynamicDataGridCellStyle}" Width="*"
-            					MinWidth="180">
+            					CellStyle="{StaticResource DynamicDataGridCellStyle}" MinWidth="300" MaxWidth="400">
                                 <DataGridTemplateColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock

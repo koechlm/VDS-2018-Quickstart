@@ -314,7 +314,7 @@
                                 </DataTemplate>
                             </DataGridTextColumn.HeaderTemplate>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Value}" Width="*"
+                        <DataGridTextColumn Binding="{Binding Value}" MinWidth="300" MaxWidth="400"
                                     CellStyle="{StaticResource DynamicDataGridCellStyle}" IsReadOnly="True">
                             <DataGridTextColumn.HeaderTemplate>
                                 <DataTemplate>
