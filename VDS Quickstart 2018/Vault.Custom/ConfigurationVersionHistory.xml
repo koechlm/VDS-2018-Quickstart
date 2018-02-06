@@ -1,5 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
+  <ConfigInfo Name="VDS Quickstart MSDCE" Version="2018.2.1">
+    <ConfigHistoryInfo>
+      <Fixes>
+        <!--de-DE only: renamed Menu definition command site object Sendung -> Versand-->
+        <!--.\AutoCAD-Mechanical\AutoCAD.XAML added missing tab control-->
+      </Fixes>
+    </ConfigHistoryInfo>
+  </ConfigInfo>
+  <ConfigInfo Name="VDS Quickstart MSDCE" Version="2018.2.0">
+    <ConfigHistoryInfo>
+      <Fixes>
+        <!--FDU 2018 built 22.02.xx and newer allow to dynamically skip the VDS dialog for 2D-3D sync workflows. FDU section updated accordingly-->
+        <!--Renamed customized default script files applying pattern "ADSK.QS.*.ps1"-->
+      </Fixes>
+    </ConfigHistoryInfo>
+  </ConfigInfo>
   <ConfigInfo Name="VDS Quickstart MSDCE" Version="2018.1.0">
     <ConfigHistoryInfo>
       <NewFeatures>

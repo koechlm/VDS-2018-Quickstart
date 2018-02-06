@@ -106,7 +106,6 @@
     <None Include="Vault.Custom\addinVault\Menus\showCustomHelp.ps1" />
     <None Include="Vault.Custom\addinVault\Menus\ShowLog.ps1" />
     <None Include="Vault.Custom\addinVault\ReserveFileNumber.ps1" />
-    <None Include="Vault.Custom\VDSQuickStartVersion.config" />
     <None Include="VDS 2018 Help EN.mmap" />
   </ItemGroup>
   <ItemGroup>

@@ -136,7 +136,7 @@ MultiSelectEnabled: If true, command is active for multiple selections, can be t
       <Item Name="newTransmittalObject"></Item>
       <Item Name="editTransmittalObject"></Item>
     </CustomObject>
-    <CustomObject Label="$UIString[MSDCE_CO04]" DeployAsPullDown="False" Location="Sendung">
+    <CustomObject Label="$UIString[MSDCE_CO04]" DeployAsPullDown="False" Location="Versand">
       <Item Name="newTransmittalObject"></Item>
       <Item Name="editTransmittalObject"></Item>
     </CustomObject>
