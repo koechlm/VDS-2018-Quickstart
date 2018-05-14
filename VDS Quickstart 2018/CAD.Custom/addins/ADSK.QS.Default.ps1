@@ -237,7 +237,8 @@ function InitializeWindow
 
 					if ($Prop["_CopyMode"].Value -and @("DWG","IDW","IPN") -contains $Prop["_FileExt"].Value)
 					{
-						$Prop["DocNumber"].Value = $Prop["DocNumber"].Value.TrimStart($UIString["CFG2"])
+						#no longer required as VDS update 2018.1 solved the naming issue for copy design
+						#$Prop["DocNumber"].Value = $Prop["DocNumber"].Value.TrimStart($UIString["CFG2"])
 					}
 					
 					#} #end of copymode = true
